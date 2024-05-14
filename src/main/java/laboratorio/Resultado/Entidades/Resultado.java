@@ -1,7 +1,9 @@
 package laboratorio.Resultado.Entidades;
 
+import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Pruebas.Entidades.Prueba;
 import jakarta.persistence.*;
+
 
 import java.util.List;
 
@@ -18,12 +20,16 @@ public class Resultado {
     @Column(name = "resultado_texto", length = 255)
     private String resultadoTexto;
 
+    @ManyToOne
+    private Paciente paciente;
+
     public Resultado() {
     }
 
-    public Resultado(List<Prueba> pruebas, String resultadoTexto) {
+    public Resultado(List<Prueba> pruebas, String resultadoTexto, Paciente paciente) {
         this.pruebas = pruebas;
         this.resultadoTexto = resultadoTexto;
+        this.paciente = paciente;
     }
 
     public Long getId() {
@@ -48,5 +54,13 @@ public class Resultado {
 
     public void setResultadoTexto(String resultadoTexto) {
         this.resultadoTexto = resultadoTexto;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 }

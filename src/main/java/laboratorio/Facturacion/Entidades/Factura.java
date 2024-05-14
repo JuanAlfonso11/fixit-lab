@@ -4,8 +4,8 @@ import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Facturacion.Entidades.MetodoPago;
 import jakarta.persistence.*;
 
-import java.util.Date;
 
+import java.util.Date;
 @Entity
 @Table(name = "factura")
 public class Factura {

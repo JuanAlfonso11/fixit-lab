@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import laboratorio.Pruebas.Entidades.Prueba;
 import laboratorio.Resultado.Entidades.Resultado;
 
+
 import java.util.List;
 
 @Entity
