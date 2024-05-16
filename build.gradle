@@ -24,9 +24,6 @@ dependencies {
     testImplementation 'org.springframework.graphql:spring-graphql-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.postgresql:postgresql'
-    implementation("io.javalin:javalin-rendering:5.6.1")
-    implementation 'org.apache.velocity:velocity-engine-core:2.3'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 tasks.named('test') {
