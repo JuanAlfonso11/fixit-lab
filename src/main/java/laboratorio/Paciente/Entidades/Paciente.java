@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import laboratorio.Pruebas.Entidades.Prueba;
 import laboratorio.Resultado.Entidades.Resultado;
 
-
 import java.util.List;
 
 @Entity
@@ -40,6 +39,9 @@ public class Paciente {
 
     @Column(name = "seguro_salud")
     private String seguroSalud;
+
+    @Column(name = "activo")
+    private boolean activo;
 
     // Getters and Setters
     public Long getId() {
@@ -120,5 +122,13 @@ public class Paciente {
 
     public void setSeguroSalud(String seguroSalud) {
         this.seguroSalud = seguroSalud;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 }

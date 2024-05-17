@@ -9,6 +9,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model) {
-        return "index";  // Nombre de la plantilla sin la extensión .vm
+        return "index";
     }
 }

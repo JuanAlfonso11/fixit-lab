@@ -13,7 +13,10 @@
 //}
 package laboratorio;
 
+import laboratorio.Empleados.Entidades.Auxiliar;
+import laboratorio.Empleados.Entidades.Bionalista;
 import laboratorio.Empleados.Entidades.Empleado;
+import laboratorio.Empleados.Entidades.Secretaria;
 import laboratorio.Empleados.Repositorios.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -33,12 +36,14 @@ public class LaboratorioApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // Crear y guardar empleados
-//        Empleado emp1 = new Empleado("John", "Doe", "johndoe", "securepassword");
-//        Empleado emp2 = new Empleado("Jane", "Doe", "janedoe", "anothersecurepassword");
+//        Secretaria secretaria = new Secretaria("Ana", "Perez", "anaperez", "password123", "ana@example.com", 5, true);
+//        Auxiliar auxiliar = new Auxiliar("Luis", "Gomez", "luisgomez", "password123", "luis@example.com", 3, true);
+//        Bionalista bionalista = new Bionalista("Maria", "Lopez", "marialopez", "password123", "maria@example.com", 7, true);
 //
 //        // Guardando en la base de datos
-//        empleadoRepository.save(emp1);
-//        empleadoRepository.save(emp2);
+//        empleadoRepository.save(secretaria);
+//        empleadoRepository.save(auxiliar);
+//        empleadoRepository.save(bionalista);
 //
 //        // Mostrar en consola o verificar que se han guardado
 //        System.out.println("Empleados agregados: " + empleadoRepository.findAll().size());

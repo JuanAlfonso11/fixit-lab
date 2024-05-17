@@ -1,11 +1,6 @@
 package laboratorio.Suplidor.Entidades;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "suplidor")
@@ -26,6 +21,9 @@ public class Suplidor {
     @Column(name = "descripcion", length = 255)
     private String descripcion;
 
+    @Column(name = "activo")
+    private boolean activo;
+
     public Suplidor() {
     }
 
@@ -34,6 +32,7 @@ public class Suplidor {
         this.direccion = direccion;
         this.telefono = telefono;
         this.descripcion = descripcion;
+        this.activo = true; // default value
     }
 
     // Getters and Setters
@@ -75,5 +74,13 @@ public class Suplidor {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 }

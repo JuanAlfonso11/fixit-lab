@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Resultado.Entidades.Resultado;
 
-
 @Entity
 @Table(name = "prueba")
 public class Prueba {
@@ -27,6 +26,9 @@ public class Prueba {
     @ManyToOne
     private Resultado resultado;
 
+    @Column(name = "activo")
+    private boolean activo;
+
     public Prueba() {
     }
 
@@ -36,6 +38,7 @@ public class Prueba {
         this.precio = precio;
         this.paciente = paciente;
         this.resultado = resultado;
+        this.activo = true; // default value
     }
 
     public Long getId() {
@@ -84,5 +87,13 @@ public class Prueba {
 
     public void setResultado(Resultado resultado) {
         this.resultado = resultado;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 }
