@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "empleados")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_empleado")
 public class Empleado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,16 +23,25 @@ public class Empleado {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Column(name = "correo", nullable = false, unique = true, length = 100)
+    @Column(name = "correo", nullable = false, length = 100)
     private String correo;
 
-    @Column(name = "tiempo_trabajando", nullable = false)
-    private int tiempoTrabajando;  // años trabajando
+    @Column(name = "tiempo_trabajando", nullable = false, length = 10)
+    private String tiempoTrabajando;
 
     @Column(name = "activo", nullable = false)
-    private boolean activo;  // para marcar si el empleado está activo
+    private boolean activo;
 
-    public Empleado(String nombre, String apellido, String usuario, String password, String correo, int tiempoTrabajando, boolean activo) {
+    @Column(name = "sexo", nullable = false, length = 10)
+    private String sexo;
+
+    @Transient
+    private String tipoEmpleado;
+
+    // Constructor
+    public Empleado() {}
+
+    public Empleado(String nombre, String apellido, String usuario, String password, String correo, String tiempoTrabajando, boolean activo, String sexo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.usuario = usuario;
@@ -38,12 +49,26 @@ public class Empleado {
         this.correo = correo;
         this.tiempoTrabajando = tiempoTrabajando;
         this.activo = activo;
+        this.sexo = sexo;
     }
 
-    public Empleado() {
+    // Getters y setters
+    public Long getId() {
+        return id;
     }
 
-    // Getters y setters para todos los campos
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getApellido() {
         return apellido;
     }
@@ -58,22 +83,6 @@ public class Empleado {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getPassword() {
@@ -92,11 +101,11 @@ public class Empleado {
         this.correo = correo;
     }
 
-    public int getTiempoTrabajando() {
+    public String getTiempoTrabajando() {
         return tiempoTrabajando;
     }
 
-    public void setTiempoTrabajando(int tiempoTrabajando) {
+    public void setTiempoTrabajando(String tiempoTrabajando) {
         this.tiempoTrabajando = tiempoTrabajando;
     }
 
@@ -106,5 +115,21 @@ public class Empleado {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getTipoEmpleado() {
+        return tipoEmpleado;
+    }
+
+    public void setTipoEmpleado(String tipoEmpleado) {
+        this.tipoEmpleado = tipoEmpleado;
     }
 }

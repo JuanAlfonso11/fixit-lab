@@ -1,15 +1,15 @@
 package laboratorio.Empleados.Entidades;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "secretarias")
+@DiscriminatorValue("Secretaria")
 public class Secretaria extends Empleado {
-    public Secretaria() {
-    }
+    // Constructor
+    public Secretaria() {}
 
-    public Secretaria(String nombre, String apellido, String usuario, String password, String correo, int tiempoTrabajando, boolean activo) {
-        super(nombre, apellido, usuario, password, correo, tiempoTrabajando, activo);
+    public Secretaria(String nombre, String apellido, String usuario, String password, String correo, String tiempoTrabajando, boolean activo, String sexo) {
+        super(nombre, apellido, usuario, password, correo, tiempoTrabajando, activo, sexo);
     }
 }
