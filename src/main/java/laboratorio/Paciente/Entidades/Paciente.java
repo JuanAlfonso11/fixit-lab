@@ -22,6 +22,9 @@ public class Paciente {
     @Column(name = "tipo_documento")
     private String tipoDocumento;
 
+    @Column(name = "documento")
+    private String documento;
+
     @Column(name = "fecha_nacimiento")
     private String fechaNacimiento;
 
@@ -42,6 +45,20 @@ public class Paciente {
 
     @Column(name = "activo")
     private boolean activo;
+
+    public Paciente() {}
+
+    public Paciente(String nombre, String apellido, String tipoDocumento, String documento, String fechaNacimiento, String telefono, String direccion, String seguroSalud, boolean activo) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.tipoDocumento = tipoDocumento;
+        this.documento = documento;
+        this.fechaNacimiento = fechaNacimiento;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.seguroSalud = seguroSalud;
+        this.activo = activo;
+    }
 
     // Getters and Setters
     public Long getId() {
@@ -74,6 +91,14 @@ public class Paciente {
 
     public void setTipoDocumento(String tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     public String getFechaNacimiento() {

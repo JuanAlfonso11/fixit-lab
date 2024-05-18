@@ -24,7 +24,7 @@
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
-<div class="min-height-300 bg-primary position-absolute w-100"></div>
+<div class="min-height-300 position-absolute w-100" style="background-color: #596CFF;"></div>
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -89,9 +89,9 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
           <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Paginas</a></li>
-          <li class="breadcrumb-item text-sm text-white active" aria-current="page">Empleados</li>
+          <li class="breadcrumb-item text-sm text-white active" aria-current="page">Pacientes</li>
         </ol>
-        <h6 class="font-weight-bolder text-white mb-0">Empleados</h6>
+        <h6 class="font-weight-bolder text-white mb-0">Pacientes</h6>
       </nav>
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -131,9 +131,9 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-            <h6>Empleados</h6>
+            <h6>Pacientes</h6>
             <!-- Botón para abrir el modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarEmpleadoModal">Agregar</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarPacienteModal">Agregar Paciente</button>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
@@ -141,13 +141,13 @@
                 <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
-                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ocupacion</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Empleado desde</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Nacimiento</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
                   <th class="text-secondary opacity-7"></th>
                 </tr>
                 </thead>
-                <tbody id="empleado-list">
-                <!-- Aquí se llenará la lista de empleados desde el frontend -->
+                <tbody id="paciente-list">
+                <!-- Aquí se llenará la lista de pacientes desde el frontend -->
                 </tbody>
               </table>
             </div>
@@ -156,19 +156,18 @@
       </div>
     </div>
 
-    <!-- Modal -->
     <div class="container mt-5">
-      <div class="modal fade" id="agregarEmpleadoModal" tabindex="-1" role="dialog" aria-labelledby="agregarEmpleadoModalLabel" aria-hidden="true">
+      <div class="modal fade" id="agregarPacienteModal" tabindex="-1" role="dialog" aria-labelledby="agregarPacienteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="agregarEmpleadoModalLabel">Agregar Empleado</h5>
+              <h5 class="modal-title" id="agregarPacienteModalLabel">Registrar Paciente</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form id="agregarEmpleadoForm">
+              <form id="agregarPacienteForm">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="nombre">Nombre</label>
@@ -181,46 +180,37 @@
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="usuario">Usuario</label>
-                    <input type="text" class="form-control" id="usuario" name="usuario" required>
+                    <label for="tipoDocumento">Tipo de Documento</label>
+                    <select class="form-control" id="tipoDocumento" name="tipoDocumento">
+                      <option value="Cedula">Cédula</option>
+                      <option value="Pasaporte">Pasaporte</option>
+                    </select>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <label for="documento">Número de Documento</label>
+                    <input type="text" class="form-control" id="documento" name="documento" required>
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="correo">Correo</label>
-                    <input type="email" class="form-control" id="correo" name="correo" required>
+                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="tiempoTrabajando">Tiempo Trabajando (Fecha de Inicio)</label>
-                    <input type="text" class="form-control" id="tiempoTrabajando" name="tiempoTrabajando" value="" required readonly>
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" required>
                   </div>
                 </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="sexo">Sexo</label>
-                    <select class="form-control" id="sexo" name="sexo" required>
-                      <option value=""></option>
-                      <option value="Masculino">Masculino</option>
-                      <option value="Femenino">Femenino</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="tipoEmpleado">Tipo de Empleado</label>
-                    <select class="form-control" id="tipoEmpleado" name="tipoEmpleado" required>
-                      <option value=""></option>
-                      <option value="Auxiliar">Auxiliar</option>
-                      <option value="Bionalista">Bionalista</option>
-                      <option value="Secretaria">Secretaria</option>
-                    </select>
-                  </div>
+                <div class="form-group">
+                  <label for="direccion">Dirección</label>
+                  <input type="text" class="form-control" id="direccion" name="direccion" required>
                 </div>
-                <!-- Campo oculto para activo -->
+                <div class="form-group">
+                  <label for="seguroSalud">Seguro de Salud</label>
+                  <input type="text" class="form-control" id="seguroSalud" name="seguroSalud" required>
+                </div>
                 <input type="hidden" id="activo" name="activo" value="true">
-                <button type="submit" class="btn btn-primary">Agregar Empleado</button>
+                <button type="submit" class="btn btn-primary">Registrar Paciente</button>
                 <button type="button" class="btn btn-danger" id="cancelarEdicion" style="display:none;">Cancelar</button>
               </form>
             </div>
@@ -228,19 +218,18 @@
         </div>
       </div>
     </div>
-
     <!-- Modal de confirmación para eliminar -->
     <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="confirmarEliminarModalLabel">Confirmar eliminación</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" the="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>¿Está seguro de que desea eliminar este empleado?</p>
+            <p>¿Está seguro de que desea eliminar este paciente?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -249,6 +238,7 @@
         </div>
       </div>
     </div>
+  </div>
 
     <footer class="footer pt-3">
       <div class="container-fluid">
@@ -366,114 +356,97 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const fechaActual = new Date();
-    const dia = String(fechaActual.getDate()).padStart(2, '0');
-    const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Los meses comienzan desde 0
-    const año = fechaActual.getFullYear();
-    const fechaFormateada = `${dia}/${mes}/${año}`;
 
-    // Asignar la fecha formateada al campo tiempoTrabajando
-    document.getElementById('tiempoTrabajando').value = fechaFormateada;
-
-    document.getElementById('agregarEmpleadoForm').addEventListener('submit', function (event) {
+    document.getElementById('agregarPacienteForm').addEventListener('submit', function (event) {
       event.preventDefault();
-
-      const empleado = {
+      const paciente = {
         nombre: document.getElementById('nombre').value,
         apellido: document.getElementById('apellido').value,
-        usuario: document.getElementById('usuario').value,
-        password: document.getElementById('password').value,
-        correo: document.getElementById('correo').value,
-        tiempoTrabajando: fechaFormateada, // Establecer la fecha formateada
-        activo: true, // Campo oculto para activo
-        tipoEmpleado: document.getElementById('tipoEmpleado').value, // Tipo de empleado
-        sexo: document.getElementById('sexo').value // Sexo del empleado
+        tipoDocumento: document.getElementById('tipoDocumento').value,
+        documento: document.getElementById('documento').value,
+        fechaNacimiento: document.getElementById('fechaNacimiento').value,
+        telefono: document.getElementById('telefono').value,
+        direccion: document.getElementById('direccion').value,
+        seguroSalud: document.getElementById('seguroSalud').value,
+        activo: true
       };
 
-      const submitButton = document.querySelector('#agregarEmpleadoForm button[type="submit"]');
+      const submitButton = document.querySelector('#agregarPacienteForm button[type="submit"]');
       if (submitButton.innerText === 'Guardar') {
-        const empleadoId = document.getElementById('agregarEmpleadoForm').dataset.empleadoId;
-        fetch(`/api/empleados/${empleadoId}`, {
+        const pacienteId = document.getElementById('agregarPacienteForm').dataset.pacienteId;
+        fetch(`/api/pacientes/${pacienteId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(empleado)
+          body: JSON.stringify(paciente)
         })
                 .then(response => response.json())
                 .then(data => {
-                  document.getElementById('agregarEmpleadoForm').reset();
-                  document.getElementById('agregarEmpleadoModalLabel').innerText = 'Agregar Empleado';
-                  submitButton.innerText = 'Agregar Empleado';
+                  document.getElementById('agregarPacienteForm').reset();
+                  document.getElementById('agregarPacienteModalLabel').innerText = 'Agregar Paciente';
+                  submitButton.innerText = 'Agregar Paciente';
                   document.getElementById('cancelarEdicion').style.display = 'none';
-                  $('#agregarEmpleadoModal').modal('hide');
-                  loadEmpleados();
+                  $('#agregarPacienteModal').modal('hide');
+                  loadPacientes();
                 })
                 .catch(error => {
                   console.error('Error:', error);
                 });
       } else {
-        fetch('/api/empleados/add', {
+        fetch('/api/pacientes/add', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(empleado)
+          body: JSON.stringify(paciente)
         })
                 .then(response => response.json())
                 .then(data => {
-                  document.getElementById('agregarEmpleadoForm').reset();
-                  document.getElementById('tiempoTrabajando').value = fechaFormateada;
-                  $('#agregarEmpleadoModal').modal('hide');
-                  loadEmpleados();
+                  document.getElementById('agregarPacienteForm').reset();
+                  $('#agregarPacienteModal').modal('hide');
+                  loadPacientes();
                 })
                 .catch(error => {
                   console.error('Error:', error);
                 });
       }
     });
-
-    loadEmpleados();
+    loadPacientes();
   });
 
-  function loadEmpleados() {
-    fetch('/api/empleados')
+  function loadPacientes() {
+    fetch('/api/pacientes')
             .then(response => response.json())
-            .then(empleados => {
-              const empleadoList = document.getElementById('empleado-list');
-              empleadoList.innerHTML = '';
-              empleados.forEach(empleado => {
-                if (empleado.activo) {
-                  const row = document.createElement('tr');
-                  row.innerHTML = `
-                <td>
-                  <div class="d-flex px-2 py-1">
-                    <div>
-                      <img src="./assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="mb-0 text-sm">${empleado.nombre} ${empleado.apellido}</h6>
-                      <p class="text-xs text-secondary mb-0">${empleado.usuario}</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="text-xs font-weight-bold mb-0">${empleado.tipoEmpleado}</p>
-                </td>
-                <td class="align-middle text-center">
-                  <span class="text-secondary text-xs font-weight-bold">${empleado.tiempoTrabajando}</span>
-                </td>
-                <td class="align-middle">
-                  <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onclick="editEmpleado(${empleado.id})">
-                    Edit
-                  </a>
-                  <a href="javascript:;" class="text-danger font-weight-bold text-xs ml-3" data-toggle="tooltip" data-original-title="Delete user" onclick="confirmDeleteEmpleado(${empleado.id})">
-                    Delete
-                  </a>
-                </td>
-              `;
-                  empleadoList.appendChild(row);
-                }
+            .then(pacientes => {
+              const pacienteList = document.getElementById('paciente-list');
+              pacienteList.innerHTML = '';  // Limpiar la lista antes de agregar nuevos elementos
+              pacientes.forEach(paciente => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex px-2 py-1">
+                            <div>
+                                <img src="./assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">${paciente.nombre} ${paciente.apellido}</h6>
+                                <p class="text-xs text-secondary mb-0">${paciente.documento}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center text-xs font-weight-bold">${paciente.fechaNacimiento}</td>
+                    <td class="text-center text-xs font-weight-bold">${paciente.telefono}</td>
+                    <td class="align-middle">
+                        <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onclick="editPaciente(${paciente.id})">
+                            Edit
+                        </a>
+                        <a href="javascript:;" class="text-danger font-weight-bold text-xs ml-3" data-toggle="tooltip" data-original-title="Delete user" onclick="confirmDeletePaciente(${paciente.id})">
+                            Delete
+                        </a>
+                    </td>
+                `;
+                pacienteList.appendChild(row);
               });
             })
             .catch(error => {
@@ -481,44 +454,45 @@
             });
   }
 
-  function editEmpleado(id) {
-    fetch(`/api/empleados/${id}`)
+
+  window.editPaciente = function(id) {
+    fetch(`/api/pacientes/${id}`)
             .then(response => response.json())
-            .then(empleado => {
-              document.getElementById('nombre').value = empleado.nombre;
-              document.getElementById('apellido').value = empleado.apellido;
-              document.getElementById('usuario').value = empleado.usuario;
-              document.getElementById('password').value = empleado.password;
-              document.getElementById('correo').value = empleado.correo;
-              document.getElementById('tiempoTrabajando').value = empleado.tiempoTrabajando;
-              document.getElementById('sexo').value = empleado.sexo;
-              document.getElementById('tipoEmpleado').value = empleado.tipoEmpleado;
-              document.getElementById('agregarEmpleadoModalLabel').innerText = 'Editar datos de empleado';
-              document.querySelector('#agregarEmpleadoForm button[type="submit"]').innerText = 'Guardar';
+            .then(paciente => {
+              document.getElementById('nombre').value = paciente.nombre;
+              document.getElementById('apellido').value = paciente.apellido;
+              document.getElementById('tipoDocumento').value = paciente.tipoDocumento;
+              document.getElementById('documento').value = paciente.documento;
+              document.getElementById('fechaNacimiento').value = paciente.fechaNacimiento;
+              document.getElementById('telefono').value = paciente.telefono;
+              document.getElementById('direccion').value = paciente.direccion;
+              document.getElementById('seguroSalud').value = paciente.seguroSalud;
+              document.getElementById('agregarPacienteModalLabel').innerText = 'Editar datos de paciente';
+              document.querySelector('#agregarPacienteForm button[type="submit"]').innerText = 'Guardar';
               document.getElementById('cancelarEdicion').style.display = 'inline-block';
-              document.getElementById('agregarEmpleadoForm').dataset.empleadoId = id;
-              $('#agregarEmpleadoModal').modal('show');
+              document.getElementById('agregarPacienteForm').dataset.pacienteId = id;
+              $('#agregarPacienteModal').modal('show');
             })
             .catch(error => {
               console.error('Error:', error);
             });
-  }
+  };
 
-  function confirmDeleteEmpleado(id) {
+  window.confirmDeletePaciente = function(id) {
     $('#confirmarEliminarModal').modal('show');
     document.getElementById('confirmarEliminarBtn').onclick = function () {
-      deleteEmpleado(id);
+      deletePaciente(id);
     };
-  }
+  };
 
-  function deleteEmpleado(id) {
-    fetch(`/api/empleados/delete/${id}`, {
+  function deletePaciente(id) {
+    fetch(`/api/pacientes/delete/${id}`, {
       method: 'PUT'
     })
             .then(response => response.json())
             .then(data => {
               $('#confirmarEliminarModal').modal('hide');
-              loadEmpleados();
+              loadPacientes();
             })
             .catch(error => {
               console.error('Error:', error);
@@ -526,13 +500,12 @@
   }
 
   document.getElementById('cancelarEdicion').addEventListener('click', function () {
-    document.getElementById('agregarEmpleadoForm').reset();
-    document.getElementById('agregarEmpleadoModalLabel').innerText = 'Agregar Empleado';
-    document.querySelector('#agregarEmpleadoForm button[type="submit"]').innerText = 'Agregar Empleado';
+    document.getElementById('agregarPacienteForm').reset();
+    document.getElementById('agregarPacienteModalLabel').innerText = 'Agregar Paciente';
+    document.querySelector('#agregarPacienteForm button[type="submit"]').innerText = 'Agregar Paciente';
     document.getElementById('cancelarEdicion').style.display = 'none';
-    $('#agregarEmpleadoModal').modal('hide');
+    $('#agregarPacienteModal').modal('hide');
   });
 </script>
 </body>
-
 </html>
