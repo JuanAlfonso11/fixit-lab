@@ -1,19 +1,49 @@
 package laboratorio.Paciente.Controlador;
 
+import laboratorio.Empleados.Entidades.Auxiliar;
+import laboratorio.Empleados.Entidades.Bionalista;
+import laboratorio.Empleados.Entidades.Empleado;
+import laboratorio.Empleados.Entidades.Secretaria;
+import laboratorio.Empleados.Repositorios.AuxiliarRepository;
+import laboratorio.Empleados.Repositorios.BionalistaRepository;
+import laboratorio.Empleados.Repositorios.EmpleadoRepository;
+import laboratorio.Empleados.Repositorios.SecretariaRepository;
 import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Paciente.Repositorios.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/pacientes")
 public class PacienteRestController {
 
     @Autowired
+    private BionalistaRepository bioanalistaRepository;
+
+    @Autowired
+    private AuxiliarRepository auxiliarRepository;
+
+    @Autowired
+    private SecretariaRepository secretariaRepository;
+
+    @Autowired
     private PacienteRepository pacienteRepository;
+
+
+    @GetMapping("/counts")
+    public ResponseEntity<Map<String, Long>> getCounts() {
+        Map<String, Long> counts = new HashMap<>();
+        counts.put("bioanalistas", bioanalistaRepository.count());
+        counts.put("auxiliares", auxiliarRepository.count());
+        counts.put("secretarias", secretariaRepository.count());
+        counts.put("pacientes", pacienteRepository.count());
+        return ResponseEntity.ok(counts);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Paciente> addPaciente(@RequestBody Paciente paciente) {
