@@ -32,6 +32,7 @@ public class SuplidorRestController {
     public List<Suplidor> getAllSuplidores() {
         return suplidorRepository.findAll();
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Suplidor> updateSuplidor(@PathVariable Long id, @RequestBody Suplidor suplidorDetails) {
         Optional<Suplidor> suplidor = suplidorRepository.findById(id);
@@ -40,6 +41,7 @@ public class SuplidorRestController {
             updatedSuplidor.setNombre(suplidorDetails.getNombre());
             updatedSuplidor.setDireccion(suplidorDetails.getDireccion());
             updatedSuplidor.setTelefono(suplidorDetails.getTelefono());
+            updatedSuplidor.setDescripcion(suplidorDetails.getDescripcion());
             updatedSuplidor.setActivo(suplidorDetails.isActivo());
             return ResponseEntity.ok(suplidorRepository.save(updatedSuplidor));
         } else {
@@ -56,5 +58,6 @@ public class SuplidorRestController {
         Suplidor updatedSuplidor = suplidorRepository.save(existingSuplidor);
         return ResponseEntity.ok(updatedSuplidor);
     }
+
 
 }
