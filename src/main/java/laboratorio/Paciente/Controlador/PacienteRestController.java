@@ -56,7 +56,9 @@ public class PacienteRestController {
                 paciente.getTelefono(),
                 paciente.getDireccion(),
                 paciente.getSeguroSalud(),
-                paciente.isActivo()));
+                paciente.isActivo(),
+                paciente.getArs(),
+                paciente.getDoctores()));
 
         return ResponseEntity.ok(savedPaciente);
     }
@@ -92,6 +94,8 @@ public class PacienteRestController {
         existingPaciente.setDireccion(paciente.getDireccion());
         existingPaciente.setSeguroSalud(paciente.getSeguroSalud());
         existingPaciente.setActivo(paciente.isActivo());
+        existingPaciente.setArs(paciente.getArs());
+        existingPaciente.setDoctores(paciente.getDoctores());
 
         Paciente updatedPaciente = pacienteRepository.save(existingPaciente);
         return ResponseEntity.ok(updatedPaciente);

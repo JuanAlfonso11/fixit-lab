@@ -1,6 +1,7 @@
 package laboratorio.Pruebas.Entidades;
 
 import jakarta.persistence.*;
+import laboratorio.ARS.Entidades.ARS;
 import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Resultado.Entidades.Resultado;
 
@@ -29,16 +30,21 @@ public class Prueba {
     @Column(name = "activo")
     private boolean activo;
 
+    @ManyToOne
+    @JoinColumn(name = "ars_id")
+    private ARS ars;
+
     public Prueba() {
     }
 
-    public Prueba(String nombrePrueba, String descripcion, double precio, Paciente paciente, Resultado resultado) {
+    public Prueba(String nombrePrueba, String descripcion, double precio, Paciente paciente, Resultado resultado, ARS ars) {
         this.nombrePrueba = nombrePrueba;
         this.descripcion = descripcion;
         this.precio = precio;
         this.paciente = paciente;
         this.resultado = resultado;
         this.activo = true; // default value
+        this.ars = ars;
     }
 
     public Long getId() {
@@ -95,5 +101,13 @@ public class Prueba {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public ARS getArs() {
+        return ars;
+    }
+
+    public void setArs(ARS ars) {
+        this.ars = ars;
     }
 }

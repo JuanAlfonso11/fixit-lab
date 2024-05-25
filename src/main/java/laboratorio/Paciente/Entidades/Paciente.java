@@ -1,6 +1,8 @@
 package laboratorio.Paciente.Entidades;
 
 import jakarta.persistence.*;
+import laboratorio.ARS.Entidades.ARS;
+import laboratorio.Doctores.Entidades.Doctores;
 import laboratorio.Pruebas.Entidades.Prueba;
 import laboratorio.Resultado.Entidades.Resultado;
 
@@ -46,9 +48,18 @@ public class Paciente {
     @Column(name = "activo")
     private boolean activo;
 
+    @ManyToOne
+    @JoinColumn(name = "ars_id")
+    private ARS ars;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctores doctores;
+
+
+
     public Paciente() {}
 
-    public Paciente(String nombre, String apellido, String tipoDocumento, String documento, String fechaNacimiento, String telefono, String direccion, String seguroSalud, boolean activo) {
+    public Paciente(String nombre, String apellido, String tipoDocumento, String documento, String fechaNacimiento, String telefono, String direccion, String seguroSalud, boolean activo, ARS ars, Doctores doctores) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDocumento = tipoDocumento;
@@ -58,6 +69,9 @@ public class Paciente {
         this.direccion = direccion;
         this.seguroSalud = seguroSalud;
         this.activo = activo;
+        this.ars = ars;
+        this.doctores = doctores;
+
     }
 
     // Getters and Setters
@@ -156,4 +170,22 @@ public class Paciente {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+    public ARS getArs() {
+        return ars;
+    }
+
+    public void setArs(ARS ars) {
+        this.ars = ars;
+    }
+
+    public Doctores getDoctores() {
+        return doctores;
+    }
+
+    public void setDoctores(Doctores doctores) {
+        this.doctores = doctores;
+    }
+
+
 }
