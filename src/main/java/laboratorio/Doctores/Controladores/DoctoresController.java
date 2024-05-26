@@ -13,54 +13,61 @@ import java.util.List;
 public class DoctoresController {
 
     @Autowired
-    private DoctoresRepository doctoresRepositorio;
+    private DoctoresRepository doctoresRepository;
 
-    // Obtener todos los doctores
-    @GetMapping
-    public List<Doctores> getAllDoctores() {
-        return doctoresRepositorio.findAll();
+    @PostMapping("/add")
+    public ResponseEntity<Doctores> addDoctor(@RequestBody Doctores doctor) {
+        Doctores savedDoctor = doctoresRepository.save(new Doctores(
+                doctor.getNombre(),
+                doctor.getApellido(),
+                doctor.getEspecialidad(),
+                doctor.getTelefono(),
+                doctor.isActivo()));
+
+        return ResponseEntity.ok(savedDoctor);
     }
 
-    // Obtener un doctor por ID
     @GetMapping("/{id}")
     public ResponseEntity<Doctores> getDoctorById(@PathVariable Long id) {
-        Doctores doctor = doctoresRepositorio.findById(id).orElse(null);
+        Doctores doctor = doctoresRepository.findById(id).orElse(null);
         if (doctor == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(doctor);
     }
 
-    // Crear un nuevo doctor
-    @PostMapping
-    public Doctores createDoctor(@RequestBody Doctores doctor) {
-        return doctoresRepositorio.save(doctor);
+    @GetMapping
+    public ResponseEntity<List<Doctores>> getAllDoctores() {
+        List<Doctores> doctores = doctoresRepository.findAll();
+        return ResponseEntity.ok(doctores);
     }
 
-    // Actualizar un doctor existente
     @PutMapping("/{id}")
-    public ResponseEntity<Doctores> updateDoctor(@PathVariable Long id, @RequestBody Doctores doctorDetails) {
-        Doctores doctor = doctoresRepositorio.findById(id).orElse(null);
-        if (doctor == null) {
+    public ResponseEntity<Doctores> updateDoctor(@PathVariable Long id, @RequestBody Doctores doctor) {
+        Doctores existingDoctor = doctoresRepository.findById(id).orElse(null);
+        if (existingDoctor == null) {
             return ResponseEntity.notFound().build();
         }
-        doctor.setNombre(doctorDetails.getNombre());
-        doctor.setApellido(doctorDetails.getApellido());
-        doctor.setEspecialidad(doctorDetails.getEspecialidad());
-        doctor.setTelefono(doctorDetails.getTelefono());
-        doctor.setActivo(doctorDetails.isActivo());
-        Doctores updatedDoctor = doctoresRepositorio.save(doctor);
+
+        existingDoctor.setNombre(doctor.getNombre());
+        existingDoctor.setApellido(doctor.getApellido());
+        existingDoctor.setEspecialidad(doctor.getEspecialidad());
+        existingDoctor.setTelefono(doctor.getTelefono());
+        existingDoctor.setActivo(doctor.isActivo());
+
+        Doctores updatedDoctor = doctoresRepository.save(existingDoctor);
         return ResponseEntity.ok(updatedDoctor);
     }
 
-    // Eliminar un doctor
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDoctor(@PathVariable Long id) {
-        Doctores doctor = doctoresRepositorio.findById(id).orElse(null);
-        if (doctor == null) {
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<Doctores> deleteDoctor(@PathVariable Long id) {
+        Doctores existingDoctor = doctoresRepository.findById(id).orElse(null);
+        if (existingDoctor == null) {
             return ResponseEntity.notFound().build();
         }
-        doctoresRepositorio.delete(doctor);
-        return ResponseEntity.noContent().build();
+        existingDoctor.setActivo(false);
+        Doctores updatedDoctor = doctoresRepository.save(existingDoctor);
+        doctoresRepository.delete(existingDoctor);
+        return ResponseEntity.ok(updatedDoctor);
     }
 }

@@ -15,16 +15,16 @@ public class ARS {
     private String nombreARS;
 
 @Column(name = "RNC",nullable = false, length = 15)
-    private int RNC;
+    private long RNC;
 
-@Column(name="represntante", length = 100)
+@Column(name="representante", length = 100)
     private String representante;
 
 @Column(name = "direccion", length = 255)
     private String direccion;
 
-@Column(name = "telefono", length = 10)
-    private int telefono;
+@Column(name = "telefono", length = 15)
+    private long telefono;
 
 @Column(name = "correo", length = 100)
     private String correo;
@@ -42,7 +42,7 @@ public ARS() {
     }
 
 
-    public ARS(String nombreARS, int RNC, String representante, String direccion, int telefono, String correo) {
+    public ARS(String nombreARS, long RNC, String representante, String direccion, long telefono, String correo) {
         this.nombreARS = nombreARS;
         this.RNC = RNC;
         this.representante = representante;
@@ -68,11 +68,11 @@ public ARS() {
         this.nombreARS = nombreARS;
     }
 
-    public int getRNC() {
+    public long getRNC() {
         return RNC;
     }
 
-    public void setRNC(int RNC) {
+    public void setRNC(long RNC) {
         this.RNC = RNC;
     }
 
@@ -92,11 +92,11 @@ public ARS() {
         this.direccion = direccion;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
@@ -131,8 +131,4 @@ public ARS() {
     public void setPruebas(List<Prueba> pruebas) {
         this.pruebas = pruebas;
     }
-
-
-
-
 }

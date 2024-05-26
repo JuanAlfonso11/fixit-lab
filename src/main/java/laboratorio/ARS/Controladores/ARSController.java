@@ -13,56 +13,66 @@ import java.util.List;
 public class ARSController {
 
     @Autowired
-    private ARSRepository arsRepositorio;
+    private ARSRepository arsRepository;
 
-    // Obtener todos los ARS
-    @GetMapping
-    public List<ARS> getAllARS() {
-        return arsRepositorio.findAll();
+    @PostMapping("/add")
+    public ResponseEntity<ARS> addARS(@RequestBody ARS ars) {
+        ARS savedARS = arsRepository.save(new ARS(
+                ars.getNombreARS(),
+                ars.getRNC(),
+                ars.getRepresentante(),
+                ars.getDireccion(),
+                ars.getTelefono(),
+                ars.getCorreo()));
+
+        return ResponseEntity.ok(savedARS);
     }
 
-    // Obtener un ARS por ID
     @GetMapping("/{id}")
     public ResponseEntity<ARS> getARSById(@PathVariable Long id) {
-        ARS ars = arsRepositorio.findById(id).orElse(null);
+        ARS ars = arsRepository.findById(id).orElse(null);
         if (ars == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(ars);
     }
 
-    // Crear un nuevo ARS
-    @PostMapping
-    public ARS createARS(@RequestBody ARS ars) {
-        return arsRepositorio.save(ars);
+    @GetMapping
+    public ResponseEntity<List<ARS>> getAllARS() {
+        List<ARS> arsList = arsRepository.findAll();
+        return ResponseEntity.ok(arsList);
     }
 
-    // Actualizar un ARS existente
     @PutMapping("/{id}")
-    public ResponseEntity<ARS> updateARS(@PathVariable Long id, @RequestBody ARS arsDetails) {
-        ARS ars = arsRepositorio.findById(id).orElse(null);
-        if (ars == null) {
+    public ResponseEntity<ARS> updateARS(@PathVariable Long id, @RequestBody ARS ars) {
+        ARS existingARS = arsRepository.findById(id).orElse(null);
+        if (existingARS == null) {
             return ResponseEntity.notFound().build();
         }
-        ars.setNombreARS(arsDetails.getNombreARS());
-        ars.setRNC(arsDetails.getRNC());
-        ars.setRepresentante(arsDetails.getRepresentante());
-        ars.setDireccion(arsDetails.getDireccion());
-        ars.setTelefono(arsDetails.getTelefono());
-        ars.setCorreo(arsDetails.getCorreo());
-        ars.setActivo(arsDetails.isActivo());
-        ARS updatedARS = arsRepositorio.save(ars);
+
+        existingARS.setNombreARS(ars.getNombreARS());
+        existingARS.setRNC(ars.getRNC());
+        existingARS.setRepresentante(ars.getRepresentante());
+        existingARS.setDireccion(ars.getDireccion());
+        existingARS.setTelefono(ars.getTelefono());
+        existingARS.setCorreo(ars.getCorreo());
+        existingARS.setActivo(ars.isActivo());
+
+        ARS updatedARS = arsRepository.save(existingARS);
         return ResponseEntity.ok(updatedARS);
     }
 
-    // Eliminar un ARS
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteARS(@PathVariable Long id) {
-        ARS ars = arsRepositorio.findById(id).orElse(null);
-        if (ars == null) {
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<ARS> deleteARS(@PathVariable Long id) {
+        ARS existingARS = arsRepository.findById(id).orElse(null);
+        if (existingARS == null) {
             return ResponseEntity.notFound().build();
         }
-        arsRepositorio.delete(ars);
-        return ResponseEntity.noContent().build();
+        existingARS.setActivo(false);
+        ARS updatedARS = arsRepository.save(existingARS);
+        arsRepository.delete(existingARS);
+        return ResponseEntity.ok(updatedARS);
     }
 }
+
+
