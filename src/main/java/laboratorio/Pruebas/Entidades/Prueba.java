@@ -1,58 +1,123 @@
 package laboratorio.Pruebas.Entidades;
 
 import jakarta.persistence.*;
-import laboratorio.ARS.Entidades.ARS;
 import laboratorio.Paciente.Entidades.Paciente;
+import laboratorio.ARS.Entidades.ARS;
 import laboratorio.Resultado.Entidades.Resultado;
+import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "prueba")
 public class Prueba {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID idPrueba;
 
     @Column(name = "nombre_prueba", nullable = false, length = 100)
     private String nombrePrueba;
 
-    @Column(name = "descripcion", length = 255)
-    private String descripcion;
+    @Column(name = "preparacion_paciente", length = 255)
+    private String preparacionPaciente;
 
-    @Column(name = "precio", nullable = false)
-    private double precio;
+    @Column(name = "muestra_requerida", length = 50)
+    private String muestraRequerida;
+
+    @Column(name = "codigo_prueba", length = 50, unique = true)
+    private String codigoPrueba;
+
+    @Column(name = "costo", nullable = false)
+    private double costo;
+
+    @Column(name = "categoria_prueba", length = 100)
+    private String categoriaPrueba;
+
+    @Column(name = "notas_adicionales", length = 255)
+    private String notasAdicionales;
+
+    @Column(name = "fecha_creacion", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaCreacion;
+
+    @Column(name = "fecha_actualizacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaActualizacion;
+
+    @Column(name = "estado")
+    private boolean estado;
 
     @ManyToOne
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
-
-    @ManyToOne
-    private Resultado resultado;
-
-    @Column(name = "activo")
-    private boolean activo;
 
     @ManyToOne
     @JoinColumn(name = "ars_id")
     private ARS ars;
 
+    @ManyToOne
+    @JoinColumn(name = "resultado_id")
+    private Resultado resultado;
+
+    // Constructor
     public Prueba() {
+        // Para JPA
     }
 
-    public Prueba(String nombrePrueba, String descripcion, double precio, Paciente paciente, Resultado resultado, ARS ars) {
+    public Prueba(String nombrePrueba, String preparacionPaciente, String muestraRequerida, double costo, String categoriaPrueba, String notasAdicionales, boolean estado, Paciente paciente, ARS ars, Resultado resultado) {
+        this.idPrueba = UUID.randomUUID();
         this.nombrePrueba = nombrePrueba;
-        this.descripcion = descripcion;
-        this.precio = precio;
+        this.preparacionPaciente = preparacionPaciente;
+        this.muestraRequerida = muestraRequerida;
+        this.codigoPrueba = generarCodigoPrueba(muestraRequerida);
+        this.costo = costo;
+        this.categoriaPrueba = categoriaPrueba;
+        this.notasAdicionales = notasAdicionales;
+        this.fechaCreacion = new Date();
+        this.fechaActualizacion = new Date();
+        this.estado = estado;
         this.paciente = paciente;
-        this.resultado = resultado;
-        this.activo = true; // default value
         this.ars = ars;
+        this.resultado = resultado;
     }
 
-    public Long getId() {
-        return id;
+    // Método para generar el código de la prueba
+    private String generarCodigoPrueba(String muestraRequerida) {
+        String codigoBase;
+        switch (muestraRequerida.toLowerCase()) {
+            case "sangre":
+                codigoBase = "SAG";
+                break;
+            case "saliva":
+                codigoBase = "SAL";
+                break;
+            case "orina":
+                codigoBase = "ORI";
+                break;
+            case "materia fecal":
+                codigoBase = "MATFE";
+                break;
+            default:
+                codigoBase = "UNK"; // Unknown sample type
+                break;
+        }
+        return codigoBase + "01"; // Placeholder, actual counter logic to be implemented
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @PrePersist
+    protected void onCreate() {
+        fechaCreacion = new Date();
+        fechaActualizacion = new Date();
+    }
+
+    // Getters y Setters
+
+    public UUID getIdPrueba() {
+        return idPrueba;
+    }
+
+    public void setIdPrueba(UUID idPrueba) {
+        this.idPrueba = idPrueba;
     }
 
     public String getNombrePrueba() {
@@ -61,22 +126,86 @@ public class Prueba {
 
     public void setNombrePrueba(String nombrePrueba) {
         this.nombrePrueba = nombrePrueba;
+        actualizarFechaActualizacion();
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getPreparacionPaciente() {
+        return preparacionPaciente;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setPreparacionPaciente(String preparacionPaciente) {
+        this.preparacionPaciente = preparacionPaciente;
+        actualizarFechaActualizacion();
     }
 
-    public double getPrecio() {
-        return precio;
+    public String getMuestraRequerida() {
+        return muestraRequerida;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setMuestraRequerida(String muestraRequerida) {
+        this.muestraRequerida = muestraRequerida;
+        this.codigoPrueba = generarCodigoPrueba(muestraRequerida);
+        actualizarFechaActualizacion();
+    }
+
+    public String getCodigoPrueba() {
+        return codigoPrueba;
+    }
+
+    public void setCodigoPrueba(String codigoPrueba) {
+        this.codigoPrueba = codigoPrueba;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+        actualizarFechaActualizacion();
+    }
+
+    public String getCategoriaPrueba() {
+        return categoriaPrueba;
+    }
+
+    public void setCategoriaPrueba(String categoriaPrueba) {
+        this.categoriaPrueba = categoriaPrueba;
+        actualizarFechaActualizacion();
+    }
+
+    public String getNotasAdicionales() {
+        return notasAdicionales;
+    }
+
+    public void setNotasAdicionales(String notasAdicionales) {
+        this.notasAdicionales = notasAdicionales;
+        actualizarFechaActualizacion();
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public Date getFechaActualizacion() {
+        return fechaActualizacion;
+    }
+
+    public void setFechaActualizacion(Date fechaActualizacion) {
+        this.fechaActualizacion = fechaActualizacion;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+        actualizarFechaActualizacion();
     }
 
     public Paciente getPaciente() {
@@ -87,6 +216,14 @@ public class Prueba {
         this.paciente = paciente;
     }
 
+    public ARS getArs() {
+        return ars;
+    }
+
+    public void setArs(ARS ars) {
+        this.ars = ars;
+    }
+
     public Resultado getResultado() {
         return resultado;
     }
@@ -95,19 +232,8 @@ public class Prueba {
         this.resultado = resultado;
     }
 
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
-    public ARS getArs() {
-        return ars;
-    }
-
-    public void setArs(ARS ars) {
-        this.ars = ars;
+    // Método para actualizar la fecha de actualización
+    private void actualizarFechaActualizacion() {
+        this.fechaActualizacion = new Date();
     }
 }

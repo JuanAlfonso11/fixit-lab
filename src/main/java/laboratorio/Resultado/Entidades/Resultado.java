@@ -35,6 +35,8 @@ public class Resultado {
         this.activo = true; // default value
     }
 
+    // Getters y Setters
+
     public Long getId() {
         return id;
     }

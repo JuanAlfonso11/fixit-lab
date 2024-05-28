@@ -1,9 +1,9 @@
 package laboratorio.ARS.Entidades;
-import laboratorio.Paciente.Entidades.Paciente;
-import laboratorio.Pruebas.Entidades.Prueba;
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
+import laboratorio.Pruebas.Entidades.Prueba;
 import java.util.List;
+
 @Entity
 @Table(name = "ars")
 public class ARS {
@@ -11,36 +11,31 @@ public class ARS {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-@Column(name = "nombre_ars", nullable = false, length = 100)
+    @Column(name = "nombre_ars", nullable = false, length = 100)
     private String nombreARS;
 
-@Column(name = "RNC",nullable = false, length = 15)
+    @Column(name = "RNC", nullable = false, length = 15)
     private long RNC;
 
-@Column(name="representante", length = 100)
+    @Column(name = "representante", length = 100)
     private String representante;
 
-@Column(name = "direccion", length = 255)
+    @Column(name = "direccion", length = 255)
     private String direccion;
 
-@Column(name = "telefono", length = 15)
+    @Column(name = "telefono", length = 15)
     private long telefono;
 
-@Column(name = "correo", length = 100)
+    @Column(name = "correo", length = 100)
     private String correo;
 
-@Column(name = "activo")
+    @Column(name = "activo")
     private boolean activo;
 
-@OneToMany(mappedBy = "ars", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Paciente> pacientes;
-
-@OneToMany(mappedBy = "ars", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "ars", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Prueba> pruebas;
 
-public ARS() {
-    }
-
+    public ARS() {}
 
     public ARS(String nombreARS, long RNC, String representante, String direccion, long telefono, String correo) {
         this.nombreARS = nombreARS;
@@ -51,6 +46,8 @@ public ARS() {
         this.correo = correo;
         this.activo = true; // default value
     }
+
+    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -114,14 +111,6 @@ public ARS() {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
-    }
-
-    public List<Paciente> getPacientes() {
-        return pacientes;
-    }
-
-    public void setPacientes(List<Paciente> pacientes) {
-        this.pacientes = pacientes;
     }
 
     public List<Prueba> getPruebas() {

@@ -51,11 +51,10 @@ public class Paciente {
     @ManyToOne
     @JoinColumn(name = "ars_id")
     private ARS ars;
+
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctores doctores;
-
-
 
     public Paciente() {}
 
@@ -71,10 +70,10 @@ public class Paciente {
         this.activo = activo;
         this.ars = ars;
         this.doctores = doctores;
-
     }
 
-    // Getters and Setters
+    // Getters y Setters
+
     public Long getId() {
         return id;
     }
@@ -186,6 +185,4 @@ public class Paciente {
     public void setDoctores(Doctores doctores) {
         this.doctores = doctores;
     }
-
-
 }

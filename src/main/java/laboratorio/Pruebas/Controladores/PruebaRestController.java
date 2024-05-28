@@ -1,67 +1,84 @@
 package laboratorio.Pruebas.Controladores;
 
+import laboratorio.Pruebas.Entidades.Prueba;
+import laboratorio.Pruebas.Repositorios.PruebaRepository;
+import laboratorio.Pruebas.Servicios.PruebaService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import laboratorio.Pruebas.Entidades.Prueba;
-import laboratorio.Pruebas.Repositorios.PruebaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/pruebas")
 public class PruebaRestController {
 
     @Autowired
-    private PruebaRepository pruebaRepository;
+    private PruebaRepository pruebaRepositorio;
+
+    @Autowired
+    private PruebaService pruebaService;
 
     @GetMapping
     public List<Prueba> getAllPruebas() {
-        return pruebaRepository.findAll();
+        return pruebaRepositorio.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Prueba> getPruebaById(@PathVariable Long id) {
-        Optional<Prueba> prueba = pruebaRepository.findById(id);
-        if (prueba.isPresent()) {
-            return ResponseEntity.ok(prueba.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Prueba> getPruebaById(@PathVariable UUID id) {
+        Optional<Prueba> prueba = pruebaRepositorio.findById(id);
+        return prueba.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Prueba> addPrueba(@RequestBody Prueba prueba) {
-        Prueba savedPrueba = pruebaRepository.save(prueba);
-        return ResponseEntity.ok(savedPrueba);
+    public Prueba createPrueba(@RequestBody Prueba prueba) {
+        // Generar el próximo código de prueba disponible basado en la categoría
+        String codigoBase = pruebaService.getBaseCodigo(prueba.getCategoriaPrueba());
+        String codigoPrueba = pruebaService.generateNextCodigo(codigoBase);
+        prueba.setCodigoPrueba(codigoPrueba);
+
+        return pruebaRepositorio.save(prueba);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Prueba> updatePrueba(@PathVariable Long id, @RequestBody Prueba pruebaDetails) {
-        Optional<Prueba> prueba = pruebaRepository.findById(id);
-        if (prueba.isPresent()) {
-            Prueba updatedPrueba = prueba.get();
-            updatedPrueba.setNombrePrueba(pruebaDetails.getNombrePrueba());
-            updatedPrueba.setDescripcion(pruebaDetails.getDescripcion());
-            updatedPrueba.setPrecio(pruebaDetails.getPrecio());
-            updatedPrueba.setPaciente(pruebaDetails.getPaciente());
-            updatedPrueba.setResultado(pruebaDetails.getResultado());
-            updatedPrueba.setActivo(pruebaDetails.isActivo());
-            return ResponseEntity.ok(pruebaRepository.save(updatedPrueba));
+    public ResponseEntity<Prueba> updatePrueba(@PathVariable UUID id, @RequestBody Prueba pruebaDetails) {
+        Optional<Prueba> optionalPrueba = pruebaRepositorio.findById(id);
+        if (optionalPrueba.isPresent()) {
+            Prueba prueba = optionalPrueba.get();
+            prueba.setNombrePrueba(pruebaDetails.getNombrePrueba());
+            prueba.setPreparacionPaciente(pruebaDetails.getPreparacionPaciente());
+            prueba.setMuestraRequerida(pruebaDetails.getMuestraRequerida());
+            prueba.setCodigoPrueba(pruebaDetails.getCodigoPrueba());
+            prueba.setCosto(pruebaDetails.getCosto());
+            prueba.setCategoriaPrueba(pruebaDetails.getCategoriaPrueba());
+            prueba.setNotasAdicionales(pruebaDetails.getNotasAdicionales());
+            prueba.setEstado(pruebaDetails.isEstado());
+            Prueba updatedPrueba = pruebaRepositorio.save(prueba);
+            return ResponseEntity.ok(updatedPrueba);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePrueba(@PathVariable Long id) {
-        Optional<Prueba> prueba = pruebaRepository.findById(id);
-        if (prueba.isPresent()) {
-            pruebaRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<Void> deletePrueba(@PathVariable UUID id) {
+        Optional<Prueba> optionalPrueba = pruebaRepositorio.findById(id);
+        if (optionalPrueba.isPresent()) {
+            Prueba prueba = optionalPrueba.get();
+            prueba.setEstado(false);
+            pruebaRepositorio.save(prueba);
+            return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/codigo")
+    public ResponseEntity<String> getCodigoPrueba(@RequestParam String base) {
+        String codigo = pruebaService.generateNextCodigo(base);
+        return ResponseEntity.ok(codigo);
     }
 }
