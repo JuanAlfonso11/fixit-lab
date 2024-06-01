@@ -45,6 +45,21 @@ public class PacienteRestController {
         return ResponseEntity.ok(counts);
     }
 
+    @PostMapping("/buscar")
+    public ResponseEntity<List<Paciente>> buscarPacientes(@RequestBody Map<String, String> criterios) {
+        List<Paciente> pacientes = pacienteRepository.buscarPorCriterios(
+                criterios.get("nombre"),
+                criterios.get("apellido"),
+                criterios.get("tipoDocumento"),
+                criterios.get("documento"),
+                criterios.get("fechaNacimiento"),
+                criterios.get("telefono"),
+                criterios.get("direccion"),
+                criterios.get("seguroSalud")
+        );
+        return ResponseEntity.ok(pacientes);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Paciente> addPaciente(@RequestBody Paciente paciente) {
         Paciente savedPaciente = pacienteRepository.save(new Paciente(
