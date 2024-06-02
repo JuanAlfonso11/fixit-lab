@@ -2,7 +2,7 @@ package laboratorio.Pruebas.Controladores;
 
 import laboratorio.Pruebas.Entidades.Prueba;
 import laboratorio.Pruebas.Repositorios.PruebaRepository;
-import laboratorio.Pruebas.Servicios.PruebaService;
+import laboratorio.Pruebas.Servicio.PruebaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

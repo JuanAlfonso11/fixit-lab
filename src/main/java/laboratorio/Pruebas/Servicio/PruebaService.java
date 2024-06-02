@@ -1,4 +1,4 @@
-package laboratorio.Pruebas.Servicios;
+package laboratorio.Pruebas.Servicio;
 
 import laboratorio.Pruebas.Entidades.Prueba;
 import laboratorio.Pruebas.Repositorios.PruebaRepository;
