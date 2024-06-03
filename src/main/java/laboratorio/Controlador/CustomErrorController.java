@@ -1,4 +1,4 @@
-package Controlador;
+package laboratorio.Controlador;
 
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;

@@ -1,12 +1,7 @@
 package laboratorio.Paciente.Controlador;
 
-import laboratorio.Empleados.Entidades.Auxiliar;
-import laboratorio.Empleados.Entidades.Bionalista;
-import laboratorio.Empleados.Entidades.Empleado;
-import laboratorio.Empleados.Entidades.Secretaria;
 import laboratorio.Empleados.Repositorios.AuxiliarRepository;
 import laboratorio.Empleados.Repositorios.BionalistaRepository;
-import laboratorio.Empleados.Repositorios.EmpleadoRepository;
 import laboratorio.Empleados.Repositorios.SecretariaRepository;
 import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Paciente.Repositorios.PacienteRepository;
@@ -33,7 +28,6 @@ public class PacienteRestController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
-
 
     @GetMapping("/counts")
     public ResponseEntity<Map<String, Long>> getCounts() {
@@ -73,7 +67,9 @@ public class PacienteRestController {
                 paciente.getSeguroSalud(),
                 paciente.isActivo(),
                 paciente.getArs(),
-                paciente.getDoctores()));
+                paciente.getDoctores(),
+                paciente.getNss() // NSS agregado aquí
+                ));
 
         return ResponseEntity.ok(savedPaciente);
     }
@@ -108,6 +104,7 @@ public class PacienteRestController {
         existingPaciente.setTelefono(paciente.getTelefono());
         existingPaciente.setDireccion(paciente.getDireccion());
         existingPaciente.setSeguroSalud(paciente.getSeguroSalud());
+        existingPaciente.setNss(paciente.getNss()); // NSS agregado aquí
         existingPaciente.setActivo(paciente.isActivo());
         existingPaciente.setArs(paciente.getArs());
         existingPaciente.setDoctores(paciente.getDoctores());

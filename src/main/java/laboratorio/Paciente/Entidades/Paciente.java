@@ -48,6 +48,9 @@ public class Paciente {
     @Column(name = "activo")
     private boolean activo;
 
+    @Column(name = "nss", nullable = true, length = 20)
+    private String nss;
+
     @ManyToOne
     @JoinColumn(name = "ars_id")
     private ARS ars;
@@ -58,7 +61,7 @@ public class Paciente {
 
     public Paciente() {}
 
-    public Paciente(String nombre, String apellido, String tipoDocumento, String documento, String fechaNacimiento, String telefono, String direccion, String seguroSalud, boolean activo, ARS ars, Doctores doctores) {
+    public Paciente(String nombre, String apellido, String tipoDocumento, String documento, String fechaNacimiento, String telefono, String direccion, String seguroSalud, boolean activo, ARS ars, Doctores doctores, String nss) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDocumento = tipoDocumento;
@@ -70,6 +73,7 @@ public class Paciente {
         this.activo = activo;
         this.ars = ars;
         this.doctores = doctores;
+        this.nss = nss;
     }
 
     // Getters y Setters
@@ -184,5 +188,13 @@ public class Paciente {
 
     public void setDoctores(Doctores doctores) {
         this.doctores = doctores;
+    }
+
+    public String getNss() {
+        return nss;
+    }
+
+    public void setNss(String nss) {
+        this.nss = nss;
     }
 }
