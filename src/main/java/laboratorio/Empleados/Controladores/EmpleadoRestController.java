@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import laboratorio.Empleados.Entidades.*;
 import laboratorio.Empleados.Repositorios.EmpleadoRepository;
+import laboratorio.Email.Servicio.EmailService;
+
 
 import java.util.List;
 
@@ -14,6 +16,9 @@ public class EmpleadoRestController {
 
     @Autowired
     private EmpleadoRepository empleadoRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/add")
     public ResponseEntity<Empleado> addEmpleado(@RequestBody Empleado empleado) {
@@ -55,6 +60,8 @@ public class EmpleadoRestController {
             default:
                 return ResponseEntity.badRequest().build();
         }
+        emailService.enviarCorreoBienvenidaEmpleado(savedEmpleado);
+
         return ResponseEntity.ok(savedEmpleado);
     }
 

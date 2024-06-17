@@ -126,6 +126,9 @@ public class Empleado {
     }
 
     public String getTipoEmpleado() {
+        if (this.getClass().isAnnotationPresent(DiscriminatorValue.class)) {
+            return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+        }
         return tipoEmpleado;
     }
 
