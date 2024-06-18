@@ -59,9 +59,15 @@ public class Paciente {
     @JoinColumn(name = "doctor_id")
     private Doctores doctores;
 
+    @Column(name = "usuario", nullable = false, unique = true, length = 50)
+    private String usuario;
+
+    @Column(name = "password", nullable = false, length = 100)
+    private String password;
+
     public Paciente() {}
 
-    public Paciente(String nombre, String apellido, String tipoDocumento, String documento, String fechaNacimiento, String telefono, String direccion, String seguroSalud, boolean activo, ARS ars, Doctores doctores, String nss) {
+    public Paciente(String nombre, String apellido, String tipoDocumento, String documento, String fechaNacimiento, String telefono, String direccion, String seguroSalud, boolean activo, ARS ars, Doctores doctores, String nss, String usuario, String password) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDocumento = tipoDocumento;
@@ -74,6 +80,8 @@ public class Paciente {
         this.ars = ars;
         this.doctores = doctores;
         this.nss = nss;
+        this.usuario = usuario;
+        this.password = password;
     }
 
     // Getters y Setters
@@ -196,5 +204,21 @@ public class Paciente {
 
     public void setNss(String nss) {
         this.nss = nss;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

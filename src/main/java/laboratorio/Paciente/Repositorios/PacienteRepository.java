@@ -8,6 +8,7 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RepositoryRestController
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
@@ -31,4 +32,6 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
             @Param("direccion") String direccion,
             @Param("seguroSalud") String seguroSalud
     );
+    Optional<Paciente> findByDocumento(String documento);
+
 }

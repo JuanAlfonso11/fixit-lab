@@ -4,14 +4,17 @@ import laboratorio.Empleados.Repositorios.AuxiliarRepository;
 import laboratorio.Empleados.Repositorios.BionalistaRepository;
 import laboratorio.Empleados.Repositorios.SecretariaRepository;
 import laboratorio.Paciente.Entidades.Paciente;
+import laboratorio.Paciente.Excepciones.DuplicateDocumentException;
 import laboratorio.Paciente.Repositorios.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/pacientes")
@@ -28,6 +31,11 @@ public class PacienteRestController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @ExceptionHandler(DuplicateDocumentException.class)
+    public ResponseEntity<String> handleDuplicateDocumentException(DuplicateDocumentException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 
     @GetMapping("/counts")
     public ResponseEntity<Map<String, Long>> getCounts() {
@@ -56,6 +64,15 @@ public class PacienteRestController {
 
     @PostMapping("/add")
     public ResponseEntity<Paciente> addPaciente(@RequestBody Paciente paciente) {
+        // Verificar si el documento ya está registrado
+        if (pacienteRepository.findByDocumento(paciente.getDocumento()).isPresent()) {
+            throw new DuplicateDocumentException("Este documento ya está registrado");
+        }
+
+        // Usar la cédula (documento) como usuario
+        String usuario = paciente.getDocumento();
+        String password = generatePassword(8);
+
         Paciente savedPaciente = pacienteRepository.save(new Paciente(
                 paciente.getNombre(),
                 paciente.getApellido(),
@@ -68,8 +85,10 @@ public class PacienteRestController {
                 paciente.isActivo(),
                 paciente.getArs(),
                 paciente.getDoctores(),
-                paciente.getNss() // NSS agregado aquí
-                ));
+                paciente.getNss(),
+                usuario,  // Usuario basado en la cédula
+                password  // Contraseña generada
+        ));
 
         return ResponseEntity.ok(savedPaciente);
     }
@@ -123,5 +142,13 @@ public class PacienteRestController {
         Paciente updatedPaciente = pacienteRepository.save(existingPaciente);
         pacienteRepository.delete(existingPaciente);
         return ResponseEntity.ok(updatedPaciente);
+    }
+
+    private String generatePassword(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom random = new SecureRandom();
+        return random.ints(length, 0, chars.length())
+                .mapToObj(i -> String.valueOf(chars.charAt(i)))
+                .collect(Collectors.joining());
     }
 }
