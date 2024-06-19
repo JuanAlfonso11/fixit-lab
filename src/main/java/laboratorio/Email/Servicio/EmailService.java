@@ -5,6 +5,7 @@ import org.simplejavamail.api.mailer.Mailer;
 import org.simplejavamail.email.EmailBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import laboratorio.Empleados.Entidades.Empleado;
 
@@ -18,29 +19,7 @@ public class EmailService {
     @Autowired
     private Mailer mailer;
 
-//    // Método para enviar correo de bienvenida a un estudiante
-//    public void enviarCorreoBienvenida(Estudiante estudiante) {
-//        String asunto = "¡Bienvenido a nuestro Open House 2024!";
-//        String cuerpo = cargarContenidoHTML("correo_estudiante.html");
-//
-//        String nombreCapitalizado = capitalizarPrimeraLetra(estudiante.getNombre());
-//        String apellidoCapitalizado = capitalizarPrimeraLetra(estudiante.getApellido());
-//
-//        cuerpo = cuerpo.replace("{{nombre}}", nombreCapitalizado);
-//        cuerpo = cuerpo.replace("{{apellido}}", apellidoCapitalizado);
-//        cuerpo = cuerpo.replace("{{carrera}}", estudiante.getCarreraDeInteres());
-//
-//        Email email = EmailBuilder.startingBlank()
-//                .from("cicc-csti@ce.pucmm.edu.do")
-//                .to(estudiante.getCorreo())
-//                .withSubject(asunto)
-//                .withHTMLText(cuerpo)
-//                .buildEmail();
-//
-//        mailer.sendMail(email);
-//    }
-
-    // Método para enviar correo de bienvenida a un empleado
+    @Async
     public void enviarCorreoBienvenidaEmpleado(Empleado empleado) {
         String asunto = "¡Bienvenido al equipo!";
         String cuerpo = cargarContenidoHTML("correo_empleado.html");
@@ -54,9 +33,8 @@ public class EmailService {
         cuerpo = cuerpo.replace("{{password}}", empleado.getPassword());
         cuerpo = cuerpo.replace("{{tipoempleado}}", empleado.getTipoEmpleado());
 
-
         Email email = EmailBuilder.startingBlank()
-                .from("ipmx0001@ce.pucmm.edu.do")
+                .from("noreply@systechs.live")
                 .to(empleado.getCorreo())
                 .withSubject(asunto)
                 .withHTMLText(cuerpo)
@@ -65,7 +43,6 @@ public class EmailService {
         mailer.sendMail(email);
     }
 
-    // Método para cargar el contenido de un archivo HTML
     private String cargarContenidoHTML(String nombreArchivo) {
         try {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("static/" + nombreArchivo);
@@ -80,7 +57,6 @@ public class EmailService {
             return ""; // Manejar el error apropiadamente en tu aplicación
         }
     }
-
 
     public String capitalizarPrimeraLetra(String palabra) {
         if (palabra == null || palabra.isEmpty()) {
