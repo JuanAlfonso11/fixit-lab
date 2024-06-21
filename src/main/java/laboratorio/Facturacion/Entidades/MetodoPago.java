@@ -16,17 +16,12 @@ public class MetodoPago {
     @Column(name = "detalle", length = 255)
     private String detalle;
 
-    @ManyToOne
-    @JoinColumn(name = "paciente_id", nullable = false)
-    private Paciente paciente;
-
     public MetodoPago() {
     }
 
-    public MetodoPago(String nombreMetodo, String detalle, Paciente paciente) {
+    public MetodoPago(String nombreMetodo, String detalle) {
         this.nombreMetodo = nombreMetodo;
         this.detalle = detalle;
-        this.paciente = paciente;
     }
 
     // Getters y setters
@@ -52,13 +47,5 @@ public class MetodoPago {
 
     public void setDetalle(String detalle) {
         this.detalle = detalle;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
     }
 }

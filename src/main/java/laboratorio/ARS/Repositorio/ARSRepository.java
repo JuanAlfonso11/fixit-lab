@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @RepositoryRestController
 public interface ARSRepository extends JpaRepository<ARS, Long>{
+    ARS findByNombreARS(String nombreARS);
 }

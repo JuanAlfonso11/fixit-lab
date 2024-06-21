@@ -3,9 +3,12 @@ package laboratorio.Facturacion.Entidades;
 import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Facturacion.Entidades.MetodoPago;
 import jakarta.persistence.*;
+import laboratorio.Pruebas.Entidades.Prueba;
 
 
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Table(name = "factura")
 public class Factura {
@@ -30,6 +33,10 @@ public class Factura {
     @ManyToOne
     @JoinColumn(name = "metodo_pago_id", nullable = false)
     private MetodoPago metodoPago;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "factura_id")
+    private List<Prueba> pruebas;
 
     public Factura() {
     }
@@ -89,5 +96,25 @@ public class Factura {
 
     public void setMetodoPago(MetodoPago metodoPago) {
         this.metodoPago = metodoPago;
+    }
+
+    public List<Prueba> getPruebas() {
+        return pruebas;
+    }
+
+    public void setPruebas(List<Prueba> pruebas) {
+        this.pruebas = pruebas;
+    }
+
+    // Método toString para imprimir detalles de la factura
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "numeroFactura='" + numeroFactura + '\'' +
+                ", paciente=" + paciente.getNombre() +
+                ", fechaEmision=" + fechaEmision +
+                ", total=" + total +
+                ", metodoPago=" + metodoPago.getNombreMetodo() +
+                '}';
     }
 }

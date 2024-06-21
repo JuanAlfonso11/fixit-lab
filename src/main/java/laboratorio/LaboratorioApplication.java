@@ -3,6 +3,8 @@ package laboratorio;
 import laboratorio.Empleados.Entidades.Admin;
 import laboratorio.Empleados.Entidades.Empleado;
 import laboratorio.Empleados.Repositorios.EmpleadoRepository;
+import laboratorio.Facturacion.Entidades.MetodoPago;
+import laboratorio.Facturacion.Repositorios.MetodoPagoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +20,9 @@ public class LaboratorioApplication implements CommandLineRunner {
     @Autowired
     private EmpleadoRepository empleadoRepository;
 
+    @Autowired
+    private MetodoPagoRepository metodoPagoRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(LaboratorioApplication.class, args);
     }
@@ -25,7 +30,12 @@ public class LaboratorioApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         verificarYCrearAdmin();
-
+        if (metodoPagoRepository.count() == 0) {
+            MetodoPago efectivo = new MetodoPago("Efectivo", "Pago en efectivo");
+            MetodoPago tarjeta = new MetodoPago("Tarjeta", "Pago con tarjeta de crédito/débito");
+            metodoPagoRepository.save(efectivo);
+            metodoPagoRepository.save(tarjeta);
+        }
     }
 
     private void verificarYCrearAdmin() {

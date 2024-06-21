@@ -32,12 +32,12 @@ public class ARS {
     @Column(name = "activo")
     private boolean activo;
 
-    @OneToMany(mappedBy = "ars", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Prueba> pruebas;
+    @Column(name = "descuento", nullable = false)
+    private double descuento;
 
     public ARS() {}
 
-    public ARS(String nombreARS, long RNC, String representante, String direccion, long telefono, String correo) {
+    public ARS(String nombreARS, long RNC, String representante, String direccion, long telefono, String correo,  double descuento) {
         this.nombreARS = nombreARS;
         this.RNC = RNC;
         this.representante = representante;
@@ -45,6 +45,7 @@ public class ARS {
         this.telefono = telefono;
         this.correo = correo;
         this.activo = true; // default value
+        this.descuento = descuento;
     }
 
     // Getters y Setters
@@ -113,11 +114,11 @@ public class ARS {
         this.activo = activo;
     }
 
-    public List<Prueba> getPruebas() {
-        return pruebas;
+    public double getDescuento() {
+        return descuento;
     }
 
-    public void setPruebas(List<Prueba> pruebas) {
-        this.pruebas = pruebas;
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
     }
 }

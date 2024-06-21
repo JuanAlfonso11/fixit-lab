@@ -48,14 +48,6 @@ public class Prueba {
     private boolean estado;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
-
-    @ManyToOne
-    @JoinColumn(name = "ars_id")
-    private ARS ars;
-
-    @ManyToOne
     @JoinColumn(name = "resultado_id")
     private Resultado resultado;
 
@@ -64,7 +56,7 @@ public class Prueba {
         // Para JPA
     }
 
-    public Prueba(String nombrePrueba, String preparacionPaciente, String muestraRequerida, double costo, String categoriaPrueba, String notasAdicionales, boolean estado, Paciente paciente, ARS ars, Resultado resultado) {
+    public Prueba(String nombrePrueba, String preparacionPaciente, String muestraRequerida, double costo, String categoriaPrueba, String notasAdicionales, boolean estado, Resultado resultado) {
         this.idPrueba = UUID.randomUUID();
         this.nombrePrueba = nombrePrueba;
         this.preparacionPaciente = preparacionPaciente;
@@ -76,8 +68,6 @@ public class Prueba {
         this.fechaCreacion = new Date();
         this.fechaActualizacion = new Date();
         this.estado = estado;
-        this.paciente = paciente;
-        this.ars = ars;
         this.resultado = resultado;
     }
 
@@ -206,22 +196,6 @@ public class Prueba {
     public void setEstado(boolean estado) {
         this.estado = estado;
         actualizarFechaActualizacion();
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
-
-    public ARS getArs() {
-        return ars;
-    }
-
-    public void setArs(ARS ars) {
-        this.ars = ars;
     }
 
     public Resultado getResultado() {

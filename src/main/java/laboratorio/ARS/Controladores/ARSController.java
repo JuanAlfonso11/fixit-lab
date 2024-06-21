@@ -23,7 +23,8 @@ public class ARSController {
                 ars.getRepresentante(),
                 ars.getDireccion(),
                 ars.getTelefono(),
-                ars.getCorreo()));
+                ars.getCorreo(),
+                ars.getDescuento()));
 
         return ResponseEntity.ok(savedARS);
     }
@@ -57,6 +58,7 @@ public class ARSController {
         existingARS.setTelefono(ars.getTelefono());
         existingARS.setCorreo(ars.getCorreo());
         existingARS.setActivo(ars.isActivo());
+        existingARS.setDescuento(ars.getDescuento());
 
         ARS updatedARS = arsRepository.save(existingARS);
         return ResponseEntity.ok(updatedARS);

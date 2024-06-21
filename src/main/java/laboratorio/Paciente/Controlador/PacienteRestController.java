@@ -1,5 +1,7 @@
 package laboratorio.Paciente.Controlador;
 
+import laboratorio.ARS.Entidades.ARS;
+import laboratorio.ARS.Repositorio.ARSRepository;
 import laboratorio.Empleados.Repositorios.AuxiliarRepository;
 import laboratorio.Empleados.Repositorios.BionalistaRepository;
 import laboratorio.Empleados.Repositorios.SecretariaRepository;
@@ -7,8 +9,10 @@ import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Paciente.Excepciones.DuplicateDocumentException;
 import laboratorio.Paciente.Repositorios.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.SecureRandom;
 import java.util.HashMap;
@@ -31,6 +35,9 @@ public class PacienteRestController {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private ARSRepository arsRepository;
 
     @ExceptionHandler(DuplicateDocumentException.class)
     public ResponseEntity<String> handleDuplicateDocumentException(DuplicateDocumentException ex) {
@@ -73,6 +80,13 @@ public class PacienteRestController {
         String usuario = paciente.getDocumento();
         String password = generatePassword(8);
 
+        // Asociar el ARS correcto con el seguro
+        ARS ars = arsRepository.findByNombreARS(paciente.getSeguroSalud());
+        if (ars == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ARS no encontrado para el seguro proporcionado");
+        }
+        paciente.setArs(ars);
+
         Paciente savedPaciente = pacienteRepository.save(new Paciente(
                 paciente.getNombre(),
                 paciente.getApellido(),
@@ -87,7 +101,8 @@ public class PacienteRestController {
                 paciente.getDoctores(),
                 paciente.getNss(),
                 usuario,  // Usuario basado en la cédula
-                password  // Contraseña generada
+                password,  // Contraseña generada
+                paciente.getCorreo()
         ));
 
         return ResponseEntity.ok(savedPaciente);
@@ -115,6 +130,11 @@ public class PacienteRestController {
             return ResponseEntity.notFound().build();
         }
 
+        ARS ars = arsRepository.findByNombreARS(paciente.getSeguroSalud());
+        if (ars == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ARS no encontrado para el seguro proporcionado");
+        }
+
         existingPaciente.setNombre(paciente.getNombre());
         existingPaciente.setApellido(paciente.getApellido());
         existingPaciente.setTipoDocumento(paciente.getTipoDocumento());
@@ -125,8 +145,9 @@ public class PacienteRestController {
         existingPaciente.setSeguroSalud(paciente.getSeguroSalud());
         existingPaciente.setNss(paciente.getNss()); // NSS agregado aquí
         existingPaciente.setActivo(paciente.isActivo());
-        existingPaciente.setArs(paciente.getArs());
+        existingPaciente.setArs(ars);
         existingPaciente.setDoctores(paciente.getDoctores());
+        existingPaciente.setCorreo(paciente.getCorreo());
 
         Paciente updatedPaciente = pacienteRepository.save(existingPaciente);
         return ResponseEntity.ok(updatedPaciente);

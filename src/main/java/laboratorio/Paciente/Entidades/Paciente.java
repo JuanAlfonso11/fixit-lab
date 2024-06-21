@@ -3,6 +3,7 @@ package laboratorio.Paciente.Entidades;
 import jakarta.persistence.*;
 import laboratorio.ARS.Entidades.ARS;
 import laboratorio.Doctores.Entidades.Doctores;
+import laboratorio.Facturacion.Entidades.Factura;
 import laboratorio.Pruebas.Entidades.Prueba;
 import laboratorio.Resultado.Entidades.Resultado;
 
@@ -36,7 +37,8 @@ public class Paciente {
     @Column(name = "direccion")
     private String direccion;
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "paciente_id")
     private List<Prueba> pruebas;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -65,9 +67,15 @@ public class Paciente {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
+    @Column(name = "correo", nullable = false, length = 100)
+    private String correo;
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Factura> facturas;
+
     public Paciente() {}
 
-    public Paciente(String nombre, String apellido, String tipoDocumento, String documento, String fechaNacimiento, String telefono, String direccion, String seguroSalud, boolean activo, ARS ars, Doctores doctores, String nss, String usuario, String password) {
+    public Paciente(String nombre, String apellido, String tipoDocumento, String documento, String fechaNacimiento, String telefono, String direccion, String seguroSalud, boolean activo, ARS ars, Doctores doctores, String nss, String usuario, String password, String correo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoDocumento = tipoDocumento;
@@ -82,6 +90,7 @@ public class Paciente {
         this.nss = nss;
         this.usuario = usuario;
         this.password = password;
+        this.correo = correo;
     }
 
     // Getters y Setters
@@ -220,5 +229,21 @@ public class Paciente {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Factura> facturas) {
+        this.facturas = facturas;
     }
 }

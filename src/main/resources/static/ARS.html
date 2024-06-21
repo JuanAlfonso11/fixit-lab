@@ -223,6 +223,10 @@
                   <label for="correo">Correo</label>
                   <input type="email" class="form-control" id="correo" name="correo" required>
                 </div>
+                <div class="form-group">
+                  <label for="descuento">Descuento (%)</label>
+                  <input type="number" class="form-control" id="descuento" name="descuento" step="0.01" min="0" max="100" required>
+                </div>
                 <input type="hidden" id="activo" name="activo" value="true">
                 <button type="submit" class="btn btn-primary">Registrar ARS</button>
                 <button type="button" class="btn btn-danger" id="cancelarEdicion" style="display:none;">Cancelar</button>
@@ -346,11 +350,12 @@
       event.preventDefault();
       const ars = {
         nombreARS: document.getElementById('nombreARS').value,
-        rnc: parseInt(document.getElementById('RNC').value),  // Asegúrate de que es un número válido
+        rnc: parseInt(document.getElementById('RNC').value),
         representante: document.getElementById('representante').value,
         direccion: document.getElementById('direccion').value,
-        telefono: parseInt(document.getElementById('telefono').value),  // Asegúrate de que es un número válido
+        telefono: parseInt(document.getElementById('telefono').value),
         correo: document.getElementById('correo').value,
+        descuento: parseFloat(document.getElementById('descuento').value),
         activo: true
       };
 
@@ -455,6 +460,7 @@
               document.getElementById('direccion').value = ars.direccion;
               document.getElementById('telefono').value = ars.telefono;
               document.getElementById('correo').value = ars.correo;
+              document.getElementById('descuento').value = ars.descuento;
               document.getElementById('agregarARSModalLabel').innerText = 'Editar datos de ARS';
               document.querySelector('#agregarARSForm button[type="submit"]').innerText = 'Guardar';
               document.getElementById('cancelarEdicion').style.display = 'inline-block';
