@@ -1,5 +1,6 @@
 package laboratorio.Facturacion.Entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Facturacion.Entidades.MetodoPago;
 import jakarta.persistence.*;
@@ -20,7 +21,8 @@ public class Factura {
     private String numeroFactura;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_id", nullable = false)
+    @JoinColumn(name = "paciente_id")
+    @JsonIgnore
     private Paciente paciente;
 
     @Temporal(TemporalType.DATE)

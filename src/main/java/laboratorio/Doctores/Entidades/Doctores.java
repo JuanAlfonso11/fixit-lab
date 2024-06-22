@@ -1,4 +1,5 @@
 package laboratorio.Doctores.Entidades;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import laboratorio.Paciente.Entidades.Paciente;
 import java.util.List;
@@ -22,7 +23,8 @@ public class Doctores {
 @Column(name = "telefono")
     private String telefono;
 
-@OneToMany(mappedBy = "doctores", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "doctores")
+    @JsonIgnore
     private List<Paciente> pacientes;
 
 @Column(name = "activo")

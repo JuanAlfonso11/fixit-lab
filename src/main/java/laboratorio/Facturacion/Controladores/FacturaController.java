@@ -2,6 +2,7 @@ package laboratorio.Facturacion.Controladores;
 
 import laboratorio.Doctores.Entidades.Doctores;
 import laboratorio.Doctores.Repositorios.DoctoresRepository;
+import laboratorio.Email.Servicio.EmailService;
 import laboratorio.Facturacion.Entidades.Factura;
 import laboratorio.Facturacion.Entidades.FacturaRequest;
 import laboratorio.Facturacion.Entidades.MetodoPago;
@@ -43,6 +44,9 @@ public class FacturaController {
     @Autowired
     private DoctoresRepository doctorRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping("/create")
     public ResponseEntity<?> createFactura(@RequestBody FacturaRequest facturaRequest) {
         Optional<Paciente> optionalPaciente = pacienteRepository.findById(facturaRequest.getPacienteId());
@@ -76,19 +80,19 @@ public class FacturaController {
             Doctores doctor = doctorRepository.findById(facturaRequest.getDoctorId())
                     .orElseThrow(() -> new RuntimeException("Doctor no encontrado"));
             paciente.setDoctores(doctor);
+            doctor.getPacientes().add(paciente);
         }
         factura.setNumeroFactura("X-00");
         Factura savedFactura = facturaRepository.save(factura);
 
         savedFactura.setNumeroFactura("X-00" + savedFactura.getId());
-        savedFactura = facturaRepository.save(savedFactura);
 
         paciente.getFacturas().add(savedFactura);
         paciente.getPruebas().addAll(pruebas);
         pacienteRepository.save(paciente);
 
+        emailService.enviarCorreoFactura(paciente, savedFactura, pruebas);
         System.out.println("\nFactura procesada: \n" + savedFactura);
         return ResponseEntity.ok(savedFactura);
     }
-
 }
