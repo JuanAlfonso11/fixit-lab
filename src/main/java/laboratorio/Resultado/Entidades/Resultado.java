@@ -1,5 +1,6 @@
 package laboratorio.Resultado.Entidades;
 
+import laboratorio.Facturacion.Entidades.Factura;
 import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Pruebas.Entidades.Prueba;
 import jakarta.persistence.*;
@@ -13,8 +14,14 @@ public class Resultado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "resultado", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Prueba> pruebas;
+    @ManyToOne
+    @JoinColumn(name = "factura_id", nullable = false)
+    private Factura factura;
+
+    @ManyToOne
+    @JoinColumn(name = "prueba_id", nullable = false)
+    private Prueba prueba;
+
 
     @Column(name = "resultado_texto", length = 255)
     private String resultadoTexto;
@@ -28,14 +35,13 @@ public class Resultado {
     public Resultado() {
     }
 
-    public Resultado(List<Prueba> pruebas, String resultadoTexto, Paciente paciente) {
-        this.pruebas = pruebas;
+    public Resultado(Factura factura, Prueba prueba, String resultadoTexto, Paciente paciente) {
+        this.factura = factura;
+        this.prueba = prueba;
         this.resultadoTexto = resultadoTexto;
         this.paciente = paciente;
-        this.activo = true; // default value
+        this.activo = true;
     }
-
-    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -43,14 +49,6 @@ public class Resultado {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Prueba> getPruebas() {
-        return pruebas;
-    }
-
-    public void setPruebas(List<Prueba> pruebas) {
-        this.pruebas = pruebas;
     }
 
     public String getResultadoTexto() {
@@ -75,5 +73,33 @@ public class Resultado {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public Prueba getPrueba() {
+        return prueba;
+    }
+
+    public void setPrueba(Prueba prueba) {
+        this.prueba = prueba;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
+    }
+
+    @Override
+    public String toString() {
+        return "Resultado{" +
+                "id=" + id +
+                ", factura=" + factura.getNumeroFactura() +
+                ", prueba=" + prueba.getNombrePrueba() +
+                ", resultadoTexto='" + resultadoTexto + '\'' +
+                ", paciente=" + paciente.getNombre() +
+                ", activo=" + activo +
+                '}';
     }
 }

@@ -40,6 +40,9 @@ public class Factura {
     @JoinColumn(name = "factura_id")
     private List<Prueba> pruebas;
 
+    @Column(name = "completada", nullable = false)
+    private boolean completada = false;
+
     public Factura() {
     }
 
@@ -106,6 +109,14 @@ public class Factura {
 
     public void setPruebas(List<Prueba> pruebas) {
         this.pruebas = pruebas;
+    }
+
+    public boolean isCompletada() {
+        return completada;
+    }
+
+    public void setCompletada(boolean completada) {
+        this.completada = completada;
     }
 
     // Método toString para imprimir detalles de la factura

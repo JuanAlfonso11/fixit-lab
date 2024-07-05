@@ -4,6 +4,7 @@ import laboratorio.Doctores.Entidades.Doctores;
 import laboratorio.Doctores.Repositorios.DoctoresRepository;
 import laboratorio.Email.Servicio.EmailService;
 import laboratorio.Facturacion.Entidades.Factura;
+import laboratorio.Facturacion.Entidades.FacturaDTO;
 import laboratorio.Facturacion.Entidades.FacturaRequest;
 import laboratorio.Facturacion.Entidades.MetodoPago;
 import laboratorio.Facturacion.Repositorios.FacturaRepository;
@@ -11,14 +12,13 @@ import laboratorio.Facturacion.Repositorios.MetodoPagoRepository;
 import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Paciente.Repositorios.PacienteRepository;
 import laboratorio.Pruebas.Entidades.Prueba;
+import laboratorio.Pruebas.Entidades.PruebaDTO;
 import laboratorio.Pruebas.Repositorios.PruebaRepository;
+import laboratorio.Resultado.Repositorios.ResultadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -43,6 +43,9 @@ public class FacturaController {
 
     @Autowired
     private DoctoresRepository doctorRepository;
+
+    @Autowired
+    private ResultadoRepository resultadoRepository;
 
     @Autowired
     private EmailService emailService;
@@ -83,8 +86,9 @@ public class FacturaController {
             doctor.getPacientes().add(paciente);
         }
         factura.setNumeroFactura("X-00");
-        Factura savedFactura = facturaRepository.save(factura);
+        factura.setCompletada(false);
 
+        Factura savedFactura = facturaRepository.save(factura);
         savedFactura.setNumeroFactura("X-00" + savedFactura.getId());
 
         paciente.getFacturas().add(savedFactura);
@@ -95,4 +99,25 @@ public class FacturaController {
         System.out.println("\nFactura procesada: \n" + savedFactura);
         return ResponseEntity.ok(savedFactura);
     }
+
+    @GetMapping("/noCompletadas")
+    public ResponseEntity<List<FacturaDTO>> getFacturasNoCompletadas() {
+        List<Factura> facturas = facturaRepository.findByCompletadaFalse();
+        List<FacturaDTO> facturasDTO = facturas.stream().map(FacturaDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(facturasDTO);
+    }
+
+    @GetMapping("/{id}/pruebas")
+    public ResponseEntity<List<PruebaDTO>> getPruebasByFacturaId(@PathVariable Long id) {
+        Optional<Factura> facturaOpt = facturaRepository.findById(id);
+        if (!facturaOpt.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        Factura factura = facturaOpt.get();
+        List<PruebaDTO> pruebasDTO = factura.getPruebas().stream()
+                .map(prueba -> new PruebaDTO(prueba, resultadoRepository.existsByPrueba(prueba)))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(pruebasDTO);
+    }
 }
+

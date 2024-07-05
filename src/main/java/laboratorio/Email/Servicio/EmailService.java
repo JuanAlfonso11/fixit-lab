@@ -3,6 +3,7 @@ package laboratorio.Email.Servicio;
 import laboratorio.Facturacion.Entidades.Factura;
 import laboratorio.Paciente.Entidades.Paciente;
 import laboratorio.Pruebas.Entidades.Prueba;
+import laboratorio.Resultado.Entidades.Resultado;
 import org.simplejavamail.api.email.Email;
 import org.simplejavamail.api.mailer.Mailer;
 import org.simplejavamail.email.EmailBuilder;
@@ -77,6 +78,26 @@ public class EmailService {
         mailer.sendMail(email);
     }
 
+
+    @Async
+    public void enviarCorreoResultado(Paciente paciente, Prueba prueba, Resultado resultado) {
+        String asunto = "Resultado de su Prueba - Laboratorio Médico";
+        String cuerpo = cargarContenidoHTML("correo_resultado.html");
+
+        cuerpo = cuerpo.replace("{{nombre}}", capitalizarPrimeraLetra(paciente.getNombre()));
+        cuerpo = cuerpo.replace("{{apellido}}", capitalizarPrimeraLetra(paciente.getApellido()));
+        cuerpo = cuerpo.replace("{{nombrePrueba}}", prueba.getNombrePrueba());
+        cuerpo = cuerpo.replace("{{resultado}}", resultado.getResultadoTexto());
+
+        Email email = EmailBuilder.startingBlank()
+                .from("noreply@systechs.live")
+                .to(paciente.getCorreo())
+                .withSubject(asunto)
+                .withHTMLText(cuerpo)
+                .buildEmail();
+
+        mailer.sendMail(email);
+    }
 
     private String cargarContenidoHTML(String nombreArchivo) {
         try {
