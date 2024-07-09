@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @RepositoryRestController
 public interface SecretariaRepository extends JpaRepository<Secretaria, Long> {
+    Secretaria findByUsuario(String usuario);
 }

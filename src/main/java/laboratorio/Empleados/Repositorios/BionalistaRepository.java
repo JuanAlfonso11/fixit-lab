@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @RepositoryRestController
 public interface BionalistaRepository extends JpaRepository<Bionalista, Long> {
+    Bionalista findByUsuario(String usuario);
 }

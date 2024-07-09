@@ -129,4 +129,5 @@ public class EmpleadoRestController {
         Empleado updatedEmpleado = empleadoRepository.save(existingEmpleado);
         return ResponseEntity.ok(updatedEmpleado);
     }
+
 }

@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="./assets/img/favicon.png">
   <title>
-    Lab System│Doctores
+    Lab System│Pacientes
   </title>
   <!-- Fonts and icons -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -26,6 +26,7 @@
       background-color: #596CFF !important;
       color: #fff !important;
     }
+
     .nav-link.active .icon-shape {
       background-color: #2c3e50 !important;
       color: white !important;
@@ -65,8 +66,12 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      vertical-align: middle;
     }
 
+    .table td .btn {
+      margin: 0 2px;
+    }
 
     .main-content {
       margin-left: 0;
@@ -84,7 +89,7 @@
 <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-    <a class="navbar-brand m-0" href="./index.html ">
+    <a class="navbar-brand m-0" href="index.html ">
       <img src="./assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
       <span class="ms-1 font-weight-bold">Lab System</span>
     </a>
@@ -93,7 +98,7 @@
   <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="./index.html">
+        <a class="nav-link" href="index.html">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
           </div>
@@ -101,7 +106,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="./Empleados.html">
+        <a class="nav-link" href="Empleados.html">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
           </div>
@@ -109,7 +114,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="./Pacientes.html">
+        <a class="nav-link active" href="./Pacientes.html">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
           </div>
@@ -117,7 +122,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="./Suplidores.html">
+        <a class="nav-link" href="Suplidores.html">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
           </div>
@@ -125,7 +130,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" id="nav-doctores" href="./Doctores.html">
+        <a class="nav-link " id="nav-doctores" href="Doctores.html">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
           </div>
@@ -133,7 +138,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="nav-ars" href="./ARS.html">
+        <a class="nav-link " id="nav-ars" href="ARS.html">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
           </div>
@@ -141,14 +146,13 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="nav-prueba" href="./Pruebas.html">
+        <a class="nav-link" id="nav-prueba" href="Pruebas.html">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
           </div>
           <span class="nav-link-text ms-1">Pruebas</span>
         </a>
       </li>
-
     </ul>
   </div>
 </aside>
@@ -159,14 +163,12 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
           <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Paginas</a></li>
-          <li class="breadcrumb-item text-sm text-white active" aria-current="page">Doctores</li>
+          <li class="breadcrumb-item text-sm text-white active" aria-current="page">Pacientes</li>
         </ol>
-        <h6 class="font-weight-bolder text-white mb-0">Doctores</h6>
+        <h6 class="font-weight-bolder text-white mb-0">Pacientes</h6>
       </nav>
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-          <div class="input-group">
-          </div>
         </div>
         <ul class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
@@ -194,9 +196,9 @@
       <div class="col-12">
         <div class="card mb-4">
           <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-            <h6>Doctores</h6>
+            <h6>Pacientes</h6>
             <!-- Botón para abrir el modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarDoctorModal">Agregar Doctor</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarPacienteModal">Agregar Paciente</button>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
@@ -204,14 +206,14 @@
                 <thead>
                 <tr>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
-                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Especialidad</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Nacimiento</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teléfono</th>
                   <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                   <th class="text-secondary opacity-7"></th>
                 </tr>
                 </thead>
-                <tbody id="doctor-list">
-                <!-- Aquí se llenará la lista de doctores desde el frontend -->
+                <tbody id="paciente-list">
+                <!-- Aquí se llenará la lista de pacientes desde el frontend -->
                 </tbody>
               </table>
             </div>
@@ -221,17 +223,19 @@
     </div>
 
     <div class="container mt-5">
-      <div class="modal fade" id="agregarDoctorModal" tabindex="-1" role="dialog" aria-labelledby="agregarDoctorModalLabel" aria-hidden="true">
+      <div class="modal fade" id="agregarPacienteModal" tabindex="-1" role="dialog" aria-labelledby="agregarPacienteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="agregarDoctorModalLabel">Registrar Doctor</h5>
+              <h5 class="modal-title" id="agregarPacienteModalLabel">Registrar Paciente</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form id="agregarDoctorForm">
+              <div class="alert alert-danger d-none" id="error-message"><strong>Este documento ya está registrado</strong></div>
+              <div class="alert alert-warning d-none" id="tipo-documento-message"><strong>Debe seleccionar un tipo de documento</strong></div>
+              <form id="agregarPacienteForm">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="nombre">Nombre</label>
@@ -244,31 +248,54 @@
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="especialidad">Especialidad</label>
-                    <select class="form-control" id="especialidad" name="especialidad" required>
-                      <option value="Seleccione">Seleccione</option>
-                      <option value="Cardiología">Cardiología</option>
-                      <option value="Dermatología">Dermatología</option>
-                      <option value="Gastroenterología">Gastroenterología</option>
-                      <option value="Ginecología">Ginecología</option>
-                      <option value="Medicina General">Medicina General</option>
-                      <option value="Neurología">Neurología</option>
-                      <option value="Oftalmología">Oftalmología</option>
-                      <option value="Ortopedia">Ortopedia</option>
-                      <option value="Pediatría">Pediatría</option>
-                      <option value="Psiquiatría">Psiquiatría</option>
-                      <option value="Radiología">Radiología</option>
-                      <option value="Urología">Urología</option>
+                    <label for="tipoDocumento">Tipo de Documento</label>
+                    <select class="form-control" id="tipoDocumento" name="tipoDocumento">
+                      <option value="Seleccionar">Seleccionar</option>
+                      <option value="Cedula">Cédula</option>
+                      <option value="Pasaporte">Pasaporte</option>
                     </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="documento">Número de Documento</label>
+                    <input type="text" class="form-control" id="documento" name="documento" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="telefono">Teléfono</label>
                     <input type="text" class="form-control" id="telefono" name="telefono" required>
                   </div>
                 </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="correo" name="correo" required>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="seguroSalud">Seguro de Salud</label>
+                    <select class="form-control" id="seguroSalud" name="seguroSalud" required onchange="toggleNSSField()">
+                      <!-- Opciones se llenarán dinámicamente -->
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="nss">NSS</label>
+                    <input type="text" class="form-control" id="nss" name="nss" disabled>
+                  </div>
+                </div>
                 <input type="hidden" id="activo" name="activo" value="true">
-                <button type="submit" class="btn btn-primary">Registrar Doctor</button>
-                <button type="button" class="btn btn-danger" id="cancelarEdicion" style="display:none;">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Registrar Paciente</button>
+                <button type="button" class="btn btn-danger" id="cancelarEdicion" style="display:none;" data-dismiss="modal">Cancelar</button>
               </form>
             </div>
           </div>
@@ -286,7 +313,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>¿Está seguro de que desea eliminar este doctor?</p>
+            <p>¿Está seguro de que desea eliminar este paciente?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -296,14 +323,12 @@
       </div>
     </div>
   </div>
-
-  </div>
 </main>
 <!-- Core JS Files -->
-<script src="./assets/js/core/popper.min.js"></script>
-<script src="./assets/js/core/bootstrap.min.js"></script>
-<script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="../static/assets/js/core/popper.min.js"></script>
+<script src="../static/assets/js/core/bootstrap.min.js"></script>
+<script src="../static/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../static/assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script>
   var win = navigator.platform.indexOf('Win') > -1;
   if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -316,101 +341,145 @@
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+<script src="../static/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 <!-- jQuery y Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    cargarARS(); // Cargar ARS al cargar el documento
 
-    document.getElementById('agregarDoctorForm').addEventListener('submit', function (event) {
+    document.getElementById('agregarPacienteForm').addEventListener('submit', function (event) {
       event.preventDefault();
-      const doctor = {
+      document.getElementById('error-message').classList.add('d-none');
+      document.getElementById('tipo-documento-message').classList.add('d-none');
+
+      const seguroSaludSelect = document.getElementById('seguroSalud');
+      const seguroSaludText = seguroSaludSelect.options[seguroSaludSelect.selectedIndex].text;
+
+      const tipoDocumento = document.getElementById('tipoDocumento').value;
+      if (tipoDocumento === "Seleccionar") {
+        const tipoDocumentoMessage = document.getElementById('tipo-documento-message');
+        tipoDocumentoMessage.classList.remove('d-none');
+        return;
+      }
+
+      const paciente = {
         nombre: document.getElementById('nombre').value,
         apellido: document.getElementById('apellido').value,
-        especialidad: document.getElementById('especialidad').value,
+        tipoDocumento: tipoDocumento,
+        documento: document.getElementById('documento').value,
+        fechaNacimiento: document.getElementById('fechaNacimiento').value,
         telefono: document.getElementById('telefono').value,
-        activo: true
+        direccion: document.getElementById('direccion').value,
+        seguroSalud: seguroSaludText,
+        nss: seguroSaludText === 'NO ASEGURADO' ? '' : document.getElementById('nss').value,
+        activo: true,
+        correo: document.getElementById('correo').value
       };
 
-      const submitButton = document.querySelector('#agregarDoctorForm button[type="submit"]');
+      $('#cancelarEdicion').click(function () {
+        document.getElementById('agregarPacienteForm').reset();
+        document.getElementById('tipoDocumento').value = 'Seleccionar';
+        document.getElementById('agregarPacienteModalLabel').innerText = 'Agregar Paciente';
+        document.querySelector('#agregarPacienteForm button[type="submit"]').innerText = 'Agregar Paciente';
+        document.getElementById('cancelarEdicion').style.display = 'none';
+        $('#agregarPacienteModal').modal('hide');
+        // Eliminar cualquier backdrop residual
+        $('.modal-backdrop').remove();
+        $('body').removeClass('modal-open');
+      });
+
+
+      const submitButton = document.querySelector('#agregarPacienteForm button[type="submit"]');
       if (submitButton.innerText === 'Guardar') {
-        const doctorId = document.getElementById('agregarDoctorForm').dataset.doctorId;
-        fetch(`/api/doctores/${doctorId}`, {
+        const pacienteId = document.getElementById('agregarPacienteForm').dataset.pacienteId;
+        fetch(`/api/pacientes/${pacienteId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(doctor)
+          body: JSON.stringify(paciente)
         })
                 .then(response => response.json())
                 .then(data => {
-                  document.getElementById('agregarDoctorForm').reset();
-                  document.getElementById('agregarDoctorModalLabel').innerText = 'Agregar Doctor';
-                  submitButton.innerText = 'Registrar Doctor';
+                  document.getElementById('agregarPacienteForm').reset();
+                  document.getElementById('tipoDocumento').value = 'Seleccionar';
+                  document.getElementById('agregarPacienteModalLabel').innerText = 'Agregar Paciente';
+                  submitButton.innerText = 'Agregar Paciente';
                   document.getElementById('cancelarEdicion').style.display = 'none';
-                  $('#agregarDoctorModal').modal('hide');
-                  loadDoctores();
+                  $('#agregarPacienteModal').modal('hide');
+                  loadPacientes();
                 })
                 .catch(error => {
                   console.error('Error:', error);
                 });
       } else {
-        fetch('/api/doctores/add', {
+        fetch('/api/pacientes/add', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(doctor)
+          body: JSON.stringify(paciente)
         })
-                .then(response => response.json())
+                .then(response => {
+                  if (response.ok) {
+                    return response.json();
+                  } else if (response.status === 400) {
+                    throw new Error("Este documento ya está registrado");
+                  } else {
+                    throw new Error("Error al registrar el paciente");
+                  }
+                })
                 .then(data => {
-                  document.getElementById('agregarDoctorForm').reset();
-                  $('#agregarDoctorModal').modal('hide');
-                  loadDoctores();
+                  document.getElementById('agregarPacienteForm').reset();
+                  document.getElementById('tipoDocumento').value = 'Seleccionar';
+                  $('#agregarPacienteModal').modal('hide');
+                  loadPacientes();
                 })
                 .catch(error => {
-                  console.error('Error:', error);
+                  const errorMessage = document.getElementById('error-message');
+                  errorMessage.innerText = error.message;
+                  errorMessage.classList.remove('d-none');
                 });
       }
     });
-
-    loadDoctores();
+    loadPacientes();
   });
 
-  function loadDoctores() {
-    fetch('/api/doctores')
+  function loadPacientes() {
+    fetch('/api/pacientes')
             .then(response => response.json())
-            .then(doctores => {
-              const doctorList = document.getElementById('doctor-list');
-              doctorList.innerHTML = '';  // Limpiar la lista antes de agregar nuevos elementos
-              doctores.forEach(doctor => {
+            .then(pacientes => {
+              const pacienteList = document.getElementById('paciente-list');
+              pacienteList.innerHTML = '';  // Limpiar la lista antes de agregar nuevos elementos
+              pacientes.forEach(paciente => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                <td>
-                    <div class="d-flex px-2 py-1">
-                        <div>
-                            <img src="./assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                        </div>
-                        <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">${doctor.nombre} ${doctor.apellido}</h6>
-                            <p class="text-xs text-secondary mb-0">${doctor.especialidad}</p>
-                        </div>
-                    </div>
-                </td>
-                <td class="text-center text-xs font-weight-bold">${doctor.especialidad}</td>
-                <td class="text-center text-xs font-weight-bold">${doctor.telefono}</td>
-                <td class="text-center text-xs font-weight-bold">
-                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onclick="editDoctor(${doctor.id})">
-                        Editar
-                    </a>
-                    <a href="javascript:;" class="text-danger font-weight-bold text-xs ml-3" data-toggle="tooltip" data-original-title="Delete user" onclick="confirmDeleteDoctor(${doctor.id})">
-                        Eliminar
-                    </a>
-                </td>
+              <td>
+                <div class="d-flex px-2 py-1">
+                  <div>
+                    <img src="./assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                  </div>
+                  <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">${paciente.nombre} ${paciente.apellido}</h6>
+                    <p class="text-xs text-secondary mb-0">${paciente.documento}</p>
+                  </div>
+                </div>
+              </td>
+              <td class="text-center text-xs font-weight-bold">${paciente.fechaNacimiento}</td>
+              <td class="text-center text-xs font-weight-bold">${paciente.telefono}</td>
+              <td class="text-center text-xs font-weight-bold">
+                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" onclick="editPaciente(${paciente.id})">
+                  Editar
+                </a>
+                <a href="javascript:;" class="text-danger font-weight-bold text-xs ml-3" data-toggle="tooltip" data-original-title="Delete user" onclick="confirmDeletePaciente(${paciente.id})">
+                  Eliminar
+                </a>
+              </td>
             `;
-                doctorList.appendChild(row);
+                pacienteList.appendChild(row);
               });
             })
             .catch(error => {
@@ -418,40 +487,82 @@
             });
   }
 
-  window.editDoctor = function(id) {
-    fetch(`/api/doctores/${id}`)
+  function cargarARS() {
+    fetch('/api/ars')
             .then(response => response.json())
-            .then(doctor => {
-              document.getElementById('nombre').value = doctor.nombre;
-              document.getElementById('apellido').value = doctor.apellido;
-              document.getElementById('especialidad').value = doctor.especialidad;
-              document.getElementById('telefono').value = doctor.telefono;
-              document.getElementById('agregarDoctorModalLabel').innerText = 'Editar datos de doctor';
-              document.querySelector('#agregarDoctorForm button[type="submit"]').innerText = 'Guardar';
+            .then(arsList => {
+              const seguroSaludSelect = document.getElementById('seguroSalud');
+              seguroSaludSelect.innerHTML = ''; // Limpiar las opciones actuales
+
+              const noAseguradoOption = document.createElement('option');
+              noAseguradoOption.value = 'NO ASEGURADO';
+              noAseguradoOption.text = 'NO ASEGURADO';
+              seguroSaludSelect.appendChild(noAseguradoOption);
+
+              arsList.forEach(ars => {
+                const option = document.createElement('option');
+                option.value = ars.id;
+                option.text = ars.nombreARS;
+                seguroSaludSelect.appendChild(option);
+              });
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+  }
+
+  function toggleNSSField() {
+    const seguroSaludSelect = document.getElementById('seguroSalud');
+    const nssField = document.getElementById('nss');
+    if (seguroSaludSelect.value === 'NO ASEGURADO') {
+      nssField.disabled = true;
+      nssField.value = '';
+    } else {
+      nssField.disabled = false;
+    }
+  }
+
+  window.editPaciente = function(id) {
+    fetch(`/api/pacientes/${id}`)
+            .then(response => response.json())
+            .then(paciente => {
+              document.getElementById('nombre').value = paciente.nombre;
+              document.getElementById('apellido').value = paciente.apellido;
+              document.getElementById('tipoDocumento').value = paciente.tipoDocumento;
+              document.getElementById('documento').value = paciente.documento;
+              document.getElementById('fechaNacimiento').value = paciente.fechaNacimiento;
+              document.getElementById('telefono').value = paciente.telefono;
+              document.getElementById('direccion').value = paciente.direccion;
+              document.getElementById('seguroSalud').value = paciente.seguroSalud;
+              document.getElementById('nss').value = paciente.nss;
+              document.getElementById('nss').disabled = paciente.seguroSalud === 'NO ASEGURADO';
+              document.getElementById('correo').value = paciente.correo;
+              document.getElementById('agregarPacienteModalLabel').innerText = 'Editar datos de paciente';
+              document.querySelector('#agregarPacienteForm button[type="submit"]').innerText = 'Guardar';
               document.getElementById('cancelarEdicion').style.display = 'inline-block';
-              document.getElementById('agregarDoctorForm').dataset.doctorId = id;
-              $('#agregarDoctorModal').modal('show');
+              document.getElementById('agregarPacienteForm').dataset.pacienteId = id;
+              $('#agregarPacienteModal').modal('show');
             })
             .catch(error => {
               console.error('Error:', error);
             });
   };
 
-  window.confirmDeleteDoctor = function(id) {
+  window.confirmDeletePaciente = function(id) {
     $('#confirmarEliminarModal').modal('show');
     document.getElementById('confirmarEliminarBtn').onclick = function () {
-      deleteDoctor(id);
+      deletePaciente(id);
     };
   };
 
-  function deleteDoctor(id) {
-    fetch(`/api/doctores/delete/${id}`, {
+  function deletePaciente(id) {
+    fetch(`/api/pacientes/delete/${id}`, {
       method: 'PUT'
     })
             .then(response => response.json())
             .then(data => {
               $('#confirmarEliminarModal').modal('hide');
-              loadDoctores();
+              loadPacientes();
             })
             .catch(error => {
               console.error('Error:', error);
@@ -459,13 +570,14 @@
   }
 
   document.getElementById('cancelarEdicion').addEventListener('click', function () {
-    document.getElementById('agregarDoctorForm').reset();
-    document.getElementById('agregarDoctorModalLabel').innerText = 'Agregar Doctor';
-    document.querySelector('#agregarDoctorForm button[type="submit"]').innerText = 'Registrar Doctor';
+    document.getElementById('agregarPacienteForm').reset();
+    document.getElementById('tipoDocumento').value = 'Seleccionar';
+    document.getElementById('agregarPacienteModalLabel').innerText = 'Agregar Paciente';
+    document.querySelector('#agregarPacienteForm button[type="submit"]').innerText = 'Agregar Paciente';
     document.getElementById('cancelarEdicion').style.display = 'none';
-    $('#agregarDoctorModal').modal('hide');
+    $('#agregarPacienteModal').modal('hide');
   });
-
 </script>
 </body>
+
 </html>
