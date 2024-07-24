@@ -25,7 +25,7 @@ public class EmailService {
     private Mailer mailer;
 
     @Async
-    public void enviarCorreoBienvenidaEmpleado(Empleado empleado) {
+    public void enviarCorreoBienvenidaEmpleado(Empleado empleado, String plaintextPassword) {
         String asunto = "¡Bienvenido al equipo!";
         String cuerpo = cargarContenidoHTML("correo_empleado.html");
 
@@ -35,7 +35,7 @@ public class EmailService {
         cuerpo = cuerpo.replace("{{nombre}}", nombreCapitalizado);
         cuerpo = cuerpo.replace("{{apellido}}", apellidoCapitalizado);
         cuerpo = cuerpo.replace("{{usuario}}", empleado.getUsuario());
-        cuerpo = cuerpo.replace("{{password}}", empleado.getPassword());
+        cuerpo = cuerpo.replace("{{password}}", plaintextPassword);  // Usa la contraseña en texto plano
         cuerpo = cuerpo.replace("{{tipoempleado}}", empleado.getTipoEmpleado());
 
         Email email = EmailBuilder.startingBlank()

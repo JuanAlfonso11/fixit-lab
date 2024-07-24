@@ -28,7 +28,8 @@ public class EmpleadoRestController {
 
     @PostMapping("/add")
     public ResponseEntity<Empleado> addEmpleado(@RequestBody Empleado empleado) {
-        String encodedPassword = passwordEncoder.encode(empleado.getPassword());
+        String plaintextPassword = empleado.getPassword();
+        String encodedPassword = passwordEncoder.encode(plaintextPassword);
         empleado.setPassword(encodedPassword);
 
         Empleado savedEmpleado;
@@ -69,7 +70,7 @@ public class EmpleadoRestController {
             default:
                 return ResponseEntity.badRequest().build();
         }
-        emailService.enviarCorreoBienvenidaEmpleado(savedEmpleado);
+        emailService.enviarCorreoBienvenidaEmpleado(savedEmpleado, plaintextPassword);
         return ResponseEntity.ok(savedEmpleado);
     }
 
