@@ -101,7 +101,7 @@ public class EmailService {
 
     private String cargarContenidoHTML(String nombreArchivo) {
         try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("static/" + nombreArchivo);
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("templates/" + nombreArchivo);
             if (inputStream == null) {
                 throw new IOException("Archivo no encontrado: " + nombreArchivo);
             }
