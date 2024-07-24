@@ -1,18 +1,11 @@
 package laboratorio.Controlador;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.Set;
 
 @Controller
 public class IndexController {
-
-
 
     @GetMapping("/")
     public String index(Model model) {
@@ -21,32 +14,32 @@ public class IndexController {
 
     @GetMapping("/ars")
     public String ars(Model model) {
-        return "ars";
+        return "ARS";
     }
 
     @GetMapping("/doctores")
     public String doctores(Model model) {
-        return "doctores";
+        return "Doctores";
     }
 
     @GetMapping("/empleados")
     public String empleados(Model model) {
-        return "empleados";
+        return "Empleados";
     }
 
     @GetMapping("/pacientes")
     public String pacientes(Model model) {
-        return "pacientes";
+        return "Pacientes";
     }
 
     @GetMapping("/pruebas")
     public String pruebas(Model model) {
-        return "pruebas";
+        return "Pruebas";
     }
 
     @GetMapping("/suplidores")
     public String suplidores(Model model) {
-        return "suplidores";
+        return "Suplidores";
     }
 
     @GetMapping("/indexSecretaria")
@@ -54,4 +47,8 @@ public class IndexController {
         return "indexSecretaria";
     }
 
+    @GetMapping("/indexBioanalista")
+    public String indexBioanalista(Model model) {
+        return "indexBioanalista";
+    }
 }

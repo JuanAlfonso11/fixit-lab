@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -22,6 +23,9 @@ public class LaboratorioApplication implements CommandLineRunner {
 
     @Autowired
     private MetodoPagoRepository metodoPagoRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(LaboratorioApplication.class, args);
@@ -41,7 +45,8 @@ public class LaboratorioApplication implements CommandLineRunner {
     private void verificarYCrearAdmin() {
         Optional<Empleado> adminUser = empleadoRepository.findByUsuario("admin");
         if (adminUser.isEmpty()) {
-            Admin admin = new Admin("Admin", "Admin", "admin", "admin", "admin@example.com", "0", true, "M");
+            String encodedPassword = passwordEncoder.encode("admin");
+            Admin admin = new Admin("Admin", "Admin", "admin", encodedPassword, "admin@example.com", "0", true, "M");
             empleadoRepository.save(admin);
             System.out.println("Usuario administrador creado: " + admin.getUsuario());
         } else {

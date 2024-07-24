@@ -17,11 +17,11 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
         if (roles.contains("ROLE_ADMIN")) {
-            response.sendRedirect("/Admin/index");
+            response.sendRedirect("/index");
         } else if (roles.contains("ROLE_SECRETARIA")) {
-            response.sendRedirect("/Secretaria/indexSecretaria");
+            response.sendRedirect("/indexSecretaria");
         } else if (roles.contains("ROLE_BIONALISTA")) {
-            response.sendRedirect("/Bionalista/indexBionalista");
+            response.sendRedirect("/indexBionalista");
         } else {
             response.sendRedirect("/access-denied");
         }
