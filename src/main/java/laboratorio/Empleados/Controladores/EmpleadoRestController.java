@@ -1,7 +1,10 @@
 package laboratorio.Empleados.Controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import laboratorio.Empleados.Entidades.*;
 import laboratorio.Empleados.Repositorios.EmpleadoRepository;
@@ -20,8 +23,14 @@ public class EmpleadoRestController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/add")
     public ResponseEntity<Empleado> addEmpleado(@RequestBody Empleado empleado) {
+        String encodedPassword = passwordEncoder.encode(empleado.getPassword());
+        empleado.setPassword(encodedPassword);
+
         Empleado savedEmpleado;
         switch (empleado.getTipoEmpleado()) {
             case "Auxiliar":
@@ -61,7 +70,6 @@ public class EmpleadoRestController {
                 return ResponseEntity.badRequest().build();
         }
         emailService.enviarCorreoBienvenidaEmpleado(savedEmpleado);
-
         return ResponseEntity.ok(savedEmpleado);
     }
 
@@ -108,7 +116,12 @@ public class EmpleadoRestController {
         existingEmpleado.setNombre(empleado.getNombre());
         existingEmpleado.setApellido(empleado.getApellido());
         existingEmpleado.setUsuario(empleado.getUsuario());
-        existingEmpleado.setPassword(empleado.getPassword());
+
+        if (!passwordEncoder.matches(empleado.getPassword(), existingEmpleado.getPassword())) {
+            String encodedPassword = passwordEncoder.encode(empleado.getPassword());
+            existingEmpleado.setPassword(encodedPassword);
+        }
+
         existingEmpleado.setCorreo(empleado.getCorreo());
         existingEmpleado.setTiempoTrabajando(empleado.getTiempoTrabajando());
         existingEmpleado.setActivo(empleado.isActivo());
