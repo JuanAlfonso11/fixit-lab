@@ -32,6 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private Collection<? extends GrantedAuthority> getAuthorities(Empleado empleado) {
         String role = "ROLE_" + empleado.getTipoEmpleado().toUpperCase();
+        System.out.println("Assigned Role: " + role); // Log para depuración
         return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 }

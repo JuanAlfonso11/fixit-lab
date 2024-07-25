@@ -22,22 +22,17 @@ public class LoginController {
         return "redirect:/index"; // Redirigir a la página principal después del login
     }
 
-//    @GetMapping("/login/error")
-//    public String loginError(Model model) {
-//        model.addAttribute("loginError", true);
-//        return "login"; // Asegúrate de que "login.html" esté en "resources/templates"
-//    }
-
     @GetMapping("/login/default")
     public String defaultAfterLogin(Authentication authentication) {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+        System.out.println("User Roles: " + roles); // Log para depuración
 
-        if (roles.contains("ADMIN")) {
+        if (roles.contains("ROLE_ADMIN")) {
             return "redirect:/index";
         } else if (roles.contains("ROLE_SECRETARIA")) {
-            return "redirect:/secretaria/indexSecretaria";
+            return "redirect:/indexSecretaria";
         } else if (roles.contains("ROLE_BIONALISTA")) {
-            return "redirect:/bionalista/indexBionalista";
+            return "redirect:/indexBionalista";
         } else {
             return "redirect:/access-denied";
         }

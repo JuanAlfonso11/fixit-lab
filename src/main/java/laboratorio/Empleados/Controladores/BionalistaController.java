@@ -10,6 +10,6 @@ public class BionalistaController {
 
     @GetMapping("/indexBionalista")
     public String bionalistaHome() {
-        return "Bionalista/indexBionalista";
+        return "/indexBionalista";
     }
 }

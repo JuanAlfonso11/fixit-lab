@@ -10,6 +10,6 @@ public class SecretariaController {
 
     @GetMapping("/indexSecretaria")
     public String secretariaHome() {
-        return "Secretaria/indexSecretaria";
+        return "/indexSecretaria";
     }
 }

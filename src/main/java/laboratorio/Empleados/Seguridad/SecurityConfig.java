@@ -25,15 +25,15 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/assets/**", "/css/**", "/js/**", "/img/**", "/webjars/**", "/login", "/login.html").permitAll() // Permitir acceso a recursos estáticos y a la página de login
-                        .requestMatchers("/", "/ars", "/doctores", "/empleados", "/pacientes", "/pruebas", "/suplidores").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/index", "/ars", "/doctores", "/empleados", "/pacientes", "/pruebas", "/suplidores").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/indexSecretaria").hasAuthority("ROLE_SECRETARIA")
-                        .requestMatchers("/indexBioanalista").hasAuthority("ROLE_BIONALISTA")
+                        .requestMatchers("/indexBionalista").hasAuthority("ROLE_BIONALISTA")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/login/default", true)
                         .permitAll()
                 )
                 .logout(logout -> logout

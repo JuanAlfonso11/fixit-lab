@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index(Model model) {
         return "index";
     }
@@ -47,8 +47,8 @@ public class IndexController {
         return "indexSecretaria";
     }
 
-    @GetMapping("/indexBioanalista")
+    @GetMapping("/indexBionalista")
     public String indexBioanalista(Model model) {
-        return "indexBioanalista";
+        return "indexBionalista";
     }
 }
