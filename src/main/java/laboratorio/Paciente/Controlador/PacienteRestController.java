@@ -80,11 +80,15 @@ public class PacienteRestController {
         String usuario = paciente.getDocumento();
         String password = generatePassword(8);
 
-        // Asociar el ARS correcto con el seguro
-        ARS ars = arsRepository.findByNombreARS(paciente.getSeguroSalud());
-        if (ars == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ARS no encontrado para el seguro proporcionado");
+        // Verificar si ARS es "NO ASEGURADO" o está vacío
+        ARS ars = null;
+        if (paciente.getSeguroSalud() != null && !paciente.getSeguroSalud().equals("NO ASEGURADO")) {
+            ars = arsRepository.findByNombreARS(paciente.getSeguroSalud());
+            if (ars == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ARS no encontrado para el seguro proporcionado");
+            }
         }
+
         paciente.setArs(ars);
 
         Paciente savedPaciente = pacienteRepository.save(new Paciente(
@@ -107,6 +111,7 @@ public class PacienteRestController {
 
         return ResponseEntity.ok(savedPaciente);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Paciente> getPacienteById(@PathVariable Long id) {
